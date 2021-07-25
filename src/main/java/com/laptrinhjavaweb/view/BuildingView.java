@@ -11,25 +11,34 @@ public class BuildingView {
 	private static BuildingController buildingController = new BuildingController();
 
 	public static void main(String[] args) {
-//		String name = null;
-//		String district = null;
+		String name = null;
+		String district = null;
 
-		String name = "building 1";
-		String district = "go vap";
+//		String name = "building 1";
+//		String district = "go vap";
 		BuildingSearchinput buildingSearchinput = initBuildingSearchinput(name, district);
 
 		List<BuildingModel> buildings = buildingController.getBuildings(buildingSearchinput);// tao danh sach list co
 																								// nhieu model
-
-		showbuilding(buildings);
+		try {
+			showbuilding(buildings);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
+		
 
 	}
 
 	private static void showbuilding(List<BuildingModel> buildings) {
 		// TODO Auto-generated method stub
+	
 		for (BuildingModel item : buildings) {
-			System.out.println("Ten toa nha: " + item.getName());
-			System.out.println("Dia chi: " + item.getAddress());
+			System.out.println("================================");
+			System.out.println("Tên tòa nhà: "+item.getName());
+			System.out.println("Địa chỉ: "+item.getAddress());
+			System.out.println("Kiểu thuê: ");
+			System.out.println(item.getTypeUtf8());
 		}
 	}
 
@@ -40,4 +49,5 @@ public class BuildingView {
 		buildingSearchinput.setDistrict(district);
 		return buildingSearchinput;
 	}
+
 }

@@ -40,7 +40,6 @@ public class BuildingRepository implements IBuildingRepository {
 				if (district != null && district != "")
 					query.append(" and district = '" + district + "'");
 				rs = stmt.executeQuery(query.toString());
-				
 				while (rs.next()) {
 					BuildingEntity item = new BuildingEntity();
 					item.setId(rs.getInt("id"));
@@ -48,6 +47,7 @@ public class BuildingRepository implements IBuildingRepository {
 					item.setStreet(rs.getString("street"));
 					item.setWard(rs.getString("ward"));
 					item.setDistrict(rs.getString("district"));
+					item.setType(rs.getString("type"));
 					result.add(item);
 				}
 				conn.commit();/// kiem tra
@@ -91,6 +91,7 @@ public class BuildingRepository implements IBuildingRepository {
 				e.printStackTrace();
 			}
 		}
+		
 		return result;
 	}
 
