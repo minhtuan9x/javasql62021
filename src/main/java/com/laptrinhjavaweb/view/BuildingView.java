@@ -14,7 +14,7 @@ public class BuildingView {
 		String name = null;
 		String district = null;
 
-//		String name = "building 1";
+//		String name = "building 11";
 //		String district = "go vap";
 		BuildingSearchinput buildingSearchinput = initBuildingSearchinput(name, district);
 

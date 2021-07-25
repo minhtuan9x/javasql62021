@@ -19,7 +19,6 @@ public class BuildingRepository implements IBuildingRepository {
 	private Connection conn = null;
 	private Statement stmt = null;// cung cap phuong thuc de get dl
 	static ResultSet rs = null;// de luu du lieu
-//	static PreparedStatement ps = null;
 
 	@Override
 	public List<BuildingEntity> getBuildings(String name, String district) {
@@ -29,7 +28,6 @@ public class BuildingRepository implements IBuildingRepository {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
 			if (conn != null) {
-				System.out.println("Ket noi thanh cong");
 				stmt = conn.createStatement();// khoi tao
 				conn.setAutoCommit(false);// set bao toan du lieu, neu de true dung 2 cai thi cai nao dung luu sai ko
 											// luu.
@@ -40,6 +38,7 @@ public class BuildingRepository implements IBuildingRepository {
 				if (district != null && district != "")
 					query.append(" and district = '" + district + "'");
 				rs = stmt.executeQuery(query.toString());
+				int check = 0;
 				while (rs.next()) {
 					BuildingEntity item = new BuildingEntity();
 					item.setId(rs.getInt("id"));
@@ -49,7 +48,10 @@ public class BuildingRepository implements IBuildingRepository {
 					item.setDistrict(rs.getString("district"));
 					item.setType(rs.getString("type"));
 					result.add(item);
+					check = 1;
 				}
+				if(check==0)
+					throw new Exception("Không có tòa nhà nào thỏa mãn tìm kiếm");
 				conn.commit();/// kiem tra
 			} else {
 				System.out.println("Ket noi that bai");
@@ -77,12 +79,9 @@ public class BuildingRepository implements IBuildingRepository {
 			try {
 				if (stmt != null)
 					stmt.close();
-//				if(ps!=null)
-//					ps.close();
 				if (rs != null)
 					rs.close();
 				if (conn != null) {
-					conn.close();
 					conn.close();
 				}
 
@@ -91,7 +90,7 @@ public class BuildingRepository implements IBuildingRepository {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return result;
 	}
 

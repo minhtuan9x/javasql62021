@@ -45,7 +45,11 @@ public class BuildingEntity {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
+	@Override
+	public String toString() {
+		return "BuildingEntity [id=" + id + ", name=" + name + ", street=" + street + ", ward=" + ward + ", district="
+				+ district + ", type=" + type + "]";
+	}
 	
 	
 }
