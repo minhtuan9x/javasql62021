@@ -1,13 +1,12 @@
-package com.laptrinhjavaweb.repository.entity;
+package com.toicodedao.reponsitory.entity;
 
 public class BuildingEntity {
-	
 	private int id;
 	private String name;
 	private String street;
 	private String ward;
 	private String district;
-	
+	private String type;
 	public int getId() {
 		return id;
 	}
@@ -38,6 +37,16 @@ public class BuildingEntity {
 	public void setDistrict(String district) {
 		this.district = district;
 	}
-	
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	@Override
+	public String toString() {
+		return "BuildingUntity [id=" + id + ", name=" + name + ", street=" + street + ", ward=" + ward + ", district="
+				+ district + ", type=" + type + "]";
+	}
 	
 }
