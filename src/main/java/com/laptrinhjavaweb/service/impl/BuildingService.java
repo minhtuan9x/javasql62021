@@ -42,7 +42,7 @@ public class BuildingService implements IBuildingService {
 					type.append(count+". "+buildingType.get(item)+"\n");
 					count++;
 				}	
-			if(type.toString().equals("")||type.toString().equals("")) {
+			if(type.toString().equals("")||type.toString().equals(null)) {
 				type.append("Nhà Không có kiểu thuê nào hết!!");
 			}
 		}
