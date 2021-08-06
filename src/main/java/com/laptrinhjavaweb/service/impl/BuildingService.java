@@ -2,6 +2,7 @@ package com.laptrinhjavaweb.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.laptrinhjavaweb.model.BuildingModel;
 import com.laptrinhjavaweb.model.input.BuildingSearchinput;
@@ -9,6 +10,7 @@ import com.laptrinhjavaweb.repository.IBuildingRepository;
 import com.laptrinhjavaweb.repository.entity.BuildingEntity;
 import com.laptrinhjavaweb.repository.impl.BuildingRepository;
 import com.laptrinhjavaweb.service.IBuildingService;
+import com.laptrinhjavaweb.util.BuildingTypeUtil;
 
 public class BuildingService implements IBuildingService {
 
@@ -24,38 +26,26 @@ public class BuildingService implements IBuildingService {
 			BuildingModel buildingModel = new BuildingModel();
 			buildingModel.setName(item.getName());
 			buildingModel.setAddress(item.getStreet() + " - " + item.getWard() + " - " + item.getDistrict());
-			buildingModel.setTypeUtf8(tachchuoi(item.getType()));
+			buildingModel.setTypeUtf8(getAllType(item.getType()));
 			buildingModels.add(buildingModel);
 		}
 		return buildingModels;
 	}
 
-	public static String tachchuoi(String t) {
-		StringBuilder kieu = new StringBuilder();
-		int dem = 1;
-		String[] tach = t.trim().split(",");
-		for (String item : tach) {
-			switch (item) {
-			case "tang_tret":
-				kieu.append(dem + ". Tầng trệt \n");
-				dem++;
-				break;
-			case "nguyen_can":
-				kieu.append(dem + ". Nguyên căn \n");
-				dem++;
-				break;
-			case "noi_that":
-				kieu.append(dem + ". Nội thất \n");
-				dem++;
-				break;
-			case "":
-				kieu.append("Nhà Không có kiểu thuê nào hết!!");
-				break;
-			default:
-				break;
+	public static String getAllType(String str) {
+		StringBuilder type = new StringBuilder("");
+		int count = 1;
+		String[] split = str.trim().split(",");
+		Map<String, String> buildingType = BuildingTypeUtil.getAll();
+		for (String item : split) {
+				if (buildingType.containsKey(item)) {
+					type.append(count+". "+buildingType.get(item)+"\n");
+					count++;
+				}	
+			if(type.toString().equals("")||type.toString().equals("")) {
+				type.append("Nhà Không có kiểu thuê nào hết!!");
 			}
 		}
-		return kieu.toString();
-
+		return type.toString();
 	}
 }

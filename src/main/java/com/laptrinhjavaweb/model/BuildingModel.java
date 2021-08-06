@@ -29,6 +29,11 @@ public class BuildingModel {
 	public void setTypeUtf8(String typeUtf8) {
 		this.typeUtf8 = typeUtf8;
 	}
+
+	@Override
+	public String toString() {
+		return "BuildingModel [name=" + name + ", address=" + address + ", typeUtf8=" + typeUtf8 + "]";
+	}
 	
 	
 }	

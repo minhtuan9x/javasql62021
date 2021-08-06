@@ -18,7 +18,6 @@ public class BuildingController {
 		List<BuildingModel> buildingModels = new ArrayList<>(); 
 		String name = buildingSearchinput.getName();
 		String district = buildingSearchinput.getDistrict();
-		
 		return buildingService.getBuildings(buildingSearchinput);
 	}
 }
