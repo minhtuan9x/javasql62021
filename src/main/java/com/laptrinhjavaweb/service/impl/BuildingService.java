@@ -32,10 +32,10 @@ public class BuildingService implements IBuildingService {
 		return buildingModels;
 	}
 
-	public static String getAllType(String typeStr) {
+	public static String getAllType(String typeBuilding) {
 		StringBuilder typeUtf8 = new StringBuilder("");
 		int count = 1;
-		String[] typeArray = typeStr.trim().split(",");
+		String[] typeArray = typeBuilding.trim().split(",");
 		Map<String, String> buildingType = BuildingTypeUtil.getAll();
 		for (String item : typeArray) {
 			if (buildingType.containsKey(item)) {
