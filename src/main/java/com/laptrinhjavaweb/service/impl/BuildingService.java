@@ -32,20 +32,20 @@ public class BuildingService implements IBuildingService {
 		return buildingModels;
 	}
 
-	public static String getAllType(String str) {
-		StringBuilder type = new StringBuilder("");
+	public static String getAllType(String typeStr) {
+		StringBuilder typeUtf8 = new StringBuilder("");
 		int count = 1;
-		String[] split = str.trim().split(",");
+		String[] typeArray = typeStr.trim().split(",");
 		Map<String, String> buildingType = BuildingTypeUtil.getAll();
-		for (String item : split) {
-				if (buildingType.containsKey(item)) {
-					type.append(count+". "+buildingType.get(item)+"\n");
-					count++;
-				}	
-			if(type.toString().equals("")||type.toString().equals("")) {
-				type.append("Nhà Không có kiểu thuê nào hết!!");
+		for (String item : typeArray) {
+			if (buildingType.containsKey(item)) {
+				typeUtf8.append(count + ". " + buildingType.get(item) + "\n");
+				count++;
+			}
+			if (typeUtf8.toString().equals("") || typeUtf8.toString().equals(null)) {
+				typeUtf8.append("Nhà Không có kiểu thuê nào hết!!");
 			}
 		}
-		return type.toString();
+		return typeUtf8.toString();
 	}
 }
