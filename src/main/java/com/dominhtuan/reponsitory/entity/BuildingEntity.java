@@ -1,0 +1,79 @@
+package com.dominhtuan.reponsitory.entity;
+
+public class BuildingEntity {
+	private String name;
+	private String street;
+	private String ward;
+	private String district;
+	private int numberOfBasement;
+	private int floorArea;
+	private int rentArea;
+	private String rentType;
+	private String staffName;
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getStreet() {
+		return street;
+	}
+	public void setStreet(String street) {
+		this.street = street;
+	}
+	public String getWard() {
+		return ward;
+	}
+	public void setWard(String ward) {
+		this.ward = ward;
+	}
+	public String getDistrict() {
+		return district;
+	}
+	public void setDistrict(String district) {
+		this.district = district;
+	}
+	public int getNumberOfBasement() {
+		return numberOfBasement;
+	}
+	public void setNumberOfBasement(int numberOfBasement) {
+		this.numberOfBasement = numberOfBasement;
+	}
+	public int getFloorArea() {
+		return floorArea;
+	}
+	public void setFloorArea(int floorArea) {
+		this.floorArea = floorArea;
+	}
+	public int getRentArea() {
+		return rentArea;
+	}
+	public void setRentArea(int rentArea) {
+		this.rentArea = rentArea;
+	}
+
+	
+	public String getRentType() {
+		return rentType;
+	}
+	public void setRentType(String rentType) {
+		this.rentType = rentType;
+	}
+	
+	public String getStaffName() {
+		return staffName;
+	}
+	public void setStaffName(String staffName) {
+		this.staffName = staffName;
+	}
+	@Override
+	public String toString() {
+		return "BuildingEntity [name=" + name + ", street=" + street + ", ward=" + ward + ", district=" + district
+				+ ", numberOfBasement=" + numberOfBasement + ", floorArea=" + floorArea + ", rentArea=" + rentArea
+				+ ", rentType=" + rentType + "]";
+	}
+	
+
+	
+}
