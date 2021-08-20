@@ -61,7 +61,7 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 
 	public String Query(InputSearchBuilding inputSearchBuilding) {
 		Checkinput checkinput = new Checkinput();
-//		select a.id, a.name, a.street, a.ward, a.floorarea,a.numberofbasement,b.name as district,c.value as rentarea,d1.name as renttype, f.fullname
+//		select a.id, a.name, a.street, a.ward, a.floorarea,a.numberofbasement,a.rentprice,b.name as district,c.value as rentarea,d1.name as renttype, f.fullname
 //		from building as a join district as b
 //		on a.districtid = b.id
 //		left join rentarea as c
@@ -102,22 +102,24 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 			sql.append(" and a.numberofbasement = " + inputSearchBuilding.getNumberOfBasement());
 		}
 		if (!checkinput.is0(inputSearchBuilding.getRentAreaFrom())
-				|| !checkinput.is0(inputSearchBuilding.getRentAreaTo())) {
-			if (!checkinput.is0(inputSearchBuilding.getRentAreaFrom()))
-				sql.append(" and c.value > " + inputSearchBuilding.getRentAreaFrom());
-			else
-				sql.append(" and c.value > " + inputSearchBuilding.getRentAreaTo());
+				&& checkinput.is0(inputSearchBuilding.getRentAreaTo())) {
+			sql.append(" and c.value > " + inputSearchBuilding.getRentAreaFrom());
+
+		} else if (checkinput.is0(inputSearchBuilding.getRentAreaFrom())
+				&& !checkinput.is0(inputSearchBuilding.getRentAreaTo())) {
+			sql.append(" and c.value < " + inputSearchBuilding.getRentAreaTo());
 		} else if (!checkinput.is0(inputSearchBuilding.getRentAreaFrom())
 				&& !checkinput.is0(inputSearchBuilding.getRentAreaTo())) {
 			sql.append(" and (c.value > " + inputSearchBuilding.getRentAreaFrom() + " and c.value < "
 					+ inputSearchBuilding.getRentAreaTo() + ")");
 		}
 		if (!checkinput.is0(inputSearchBuilding.getRentPriceFrom())
-				|| !checkinput.is0(inputSearchBuilding.getRentPriceTo())) {
-			if (!checkinput.is0(inputSearchBuilding.getRentPriceFrom()))
-				sql.append(" and a.rentprice > " + inputSearchBuilding.getRentPriceFrom());
-			else
-				sql.append(" and a.rentprice > " + inputSearchBuilding.getRentPriceTo());
+				&& checkinput.is0(inputSearchBuilding.getRentPriceTo())) {
+			sql.append(" and a.rentprice > " + inputSearchBuilding.getRentPriceFrom());
+
+		} else if (checkinput.is0(inputSearchBuilding.getRentPriceFrom())
+				&& !checkinput.is0(inputSearchBuilding.getRentPriceTo())) {
+			sql.append(" and a.rentprice < " + inputSearchBuilding.getRentPriceTo());
 		} else if (!checkinput.is0(inputSearchBuilding.getRentPriceFrom())
 				&& !checkinput.is0(inputSearchBuilding.getRentPriceTo()))
 			sql.append(" and (a.rentprice > " + inputSearchBuilding.getRentPriceFrom() + " and a.rentprice < "
@@ -140,6 +142,7 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 			}
 
 		}
+		System.out.println(sql);
 		return sql.toString();
 	}
 
