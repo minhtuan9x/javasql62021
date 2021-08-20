@@ -14,9 +14,7 @@ import com.dominhtuan.reponsitory.entity.BuildingEntity;
 import com.dominhtuan.util.Checkinput;
 
 public class BuildingReponsitory implements IBuildingReponsitory {
-	private String DB_URL = "jdbc:mysql://localhost:3306/estatebasic";
-	private String USER = "root";
-	private String PASS = "admin";
+	private ConnectDB connectDB = new ConnectDB();
 	private Connection conn = null;
 	private Statement stmt = null;
 	private ResultSet rs = null;
@@ -25,8 +23,7 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 		List<BuildingEntity> buildingEntities = new ArrayList<BuildingEntity>();
 
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			conn = connectDB.connectDB();
 			if (conn != null) {
 				stmt = conn.createStatement();
 				rs = stmt.executeQuery(Query(inputSearchBuilding));

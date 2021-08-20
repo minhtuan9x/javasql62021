@@ -12,18 +12,15 @@ import com.dominhtuan.reponsitory.IStaffRepository;
 import com.dominhtuan.reponsitory.entity.StaffEntity;
 
 public class StaffRepository implements IStaffRepository {
-	private String DB_URL = "jdbc:mysql://localhost:3306/estatebasic";
-	private String USER = "root";
-	private String PASS = "admin";
 	private Connection conn = null;
+	private ConnectDB connectDB = new ConnectDB();
 	private Statement stmt = null;
 	private ResultSet rs = null;
 	public List<StaffEntity> getAllStaff() {
 		List<StaffEntity> staffEntities = new ArrayList<StaffEntity>();
 		// TODO Auto-generated method stub
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			conn = connectDB.connectDB();
 			if(conn != null) {
 				stmt = conn.createStatement();
 //				select user.fullname, user.id, user_role.roleid
