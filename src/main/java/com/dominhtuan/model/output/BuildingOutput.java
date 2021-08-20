@@ -8,6 +8,7 @@ public class BuildingOutput {
 	private int numberOfBasement;
 	private int floorArea;
 	private int rentArea;
+	private int rentPrice;
 	private String rentType;
 	private String staffName;
 	public String getName() {
@@ -52,7 +53,13 @@ public class BuildingOutput {
 	public void setRentArea(int rentArea) {
 		this.rentArea = rentArea;
 	}
-
+	
+	public int getRentPrice() {
+		return rentPrice;
+	}
+	public void setRentPrice(int rentPrice) {
+		this.rentPrice = rentPrice;
+	}
 	public String getRentType() {
 		return rentType;
 	}
@@ -69,10 +76,8 @@ public class BuildingOutput {
 	@Override
 	public String toString() {
 		String s;
-		s =String.format("%-30s %-30s %-15s %-15s %-15s %-15s %-15s %-15s %-15s ", this.name,this.street
-				,this.ward,this.district,this.numberOfBasement,this.floorArea,this.rentArea,this.rentType,this.staffName);
+		s =String.format("%-30s %-30s %-15s %-15s %-15s %-15s %-15s %-15s %-15s %-15s ", this.name,this.street
+				,this.ward,this.district,this.numberOfBasement,this.floorArea,this.rentArea,this.rentPrice,this.rentType,this.staffName);
 		return s;
-	}
-	
-	
+	}	
 }

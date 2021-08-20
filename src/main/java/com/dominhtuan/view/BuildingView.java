@@ -1,11 +1,13 @@
 package com.dominhtuan.view;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import com.dominhtuan.controller.BuildingController;
 import com.dominhtuan.controller.StaffController;
 import com.dominhtuan.enums.DistrictEnum;
+import com.dominhtuan.enums.RentTypeEnum;
 import com.dominhtuan.model.input.InputSearchBuilding;
 import com.dominhtuan.model.output.BuildingOutput;
 import com.dominhtuan.model.output.StaffOutput;
@@ -58,6 +60,8 @@ public class BuildingView {
 			getAllStaff();
 			System.out.println("Nhập id nhân viên phụ trách: ");
 			int staffID = sc.nextInt();
+			System.out.println("Nhập kiểu thuê cách nhau bằng dấu , ");
+			List<String> rentType = getAllRentType();
 
 			inputSearchBuilding.setDistrictID(districtID);
 			inputSearchBuilding.setFloorArea(floorArea);
@@ -70,6 +74,7 @@ public class BuildingView {
 			inputSearchBuilding.setWard(ward);
 			inputSearchBuilding.setRentPriceFrom(rentPriceFrom);
 			inputSearchBuilding.setRentPriceTo(rentPriceTo);
+			inputSearchBuilding.setValueRentType(rentType);
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.getMessage());
@@ -84,15 +89,46 @@ public class BuildingView {
 	}
 
 	public static void getAllStaff() {
+
 		StaffController staffController = new StaffController();
 		for (StaffOutput item : staffController.getAllStaff()) {
 			System.out.println("ID: " + item.getStaffID() + "  Name: " + item.getStaffName());
 		}
+
+	}
+
+	public static List<String> getAllRentType() {
+		List<String> result = new ArrayList<String>();
+		Scanner sc = new Scanner(System.in);
+		int count = 1;
+		for (RentTypeEnum item : RentTypeEnum.values()) {
+			System.out.println(count + ": " + item.getValue());
+			count++;
+		}
+		String a = sc.nextLine();
+		for (String item : a.split(",")) {
+			switch (item) {
+			case "1":
+				result.add("tang-tret");
+				break;
+			case "2":
+				result.add("nguyen-can");
+				break;
+			case "3":
+				result.add("noi-that");
+				break;
+
+			default:
+				break;
+			}
+		}
+		return result;
 	}
 
 	public static void td() {
-		System.out.println(String.format("%-30s %-30s %-15s %-15s %-15s %-15s %-15s %-15s %-15s ", "Name", "Street",
-				"Ward", "District", "NOB", "Floor area", "Rent Area", "Rent Type", "Staff Name"));
+		System.out
+				.println(String.format("%-30s %-30s %-15s %-15s %-15s %-15s %-15s %-15s %-15s %-15s ", "Name", "Street",
+						"Ward", "District", "NOB", "Floor area", "Rent Area", "Rent Price", "Rent Type", "Staff Name"));
 	}
 
 	public static void showBuilding(List<BuildingOutput> buildingOutputs) {

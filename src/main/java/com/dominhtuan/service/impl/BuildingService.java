@@ -23,6 +23,7 @@ public class BuildingService implements IBuildingService {
 			buildingOutput.setFloorArea(item.getFloorArea());
 			buildingOutput.setNumberOfBasement(item.getNumberOfBasement());
 			buildingOutput.setRentArea(item.getRentArea());
+			buildingOutput.setRentPrice(item.getRentPrice());
 			buildingOutput.setRentType(item.getRentType());
 			buildingOutput.setStreet(item.getStreet());
 			buildingOutput.setWard(item.getWard());

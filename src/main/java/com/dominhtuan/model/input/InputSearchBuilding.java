@@ -1,5 +1,7 @@
 package com.dominhtuan.model.input;
 
+import java.util.List;
+
 public class InputSearchBuilding {
 	private String name;
 	private int floorArea;
@@ -12,6 +14,7 @@ public class InputSearchBuilding {
 	private int rentPriceFrom;
 	private int rentPriceTo;
 	private int staffID;
+	private List<String> valueRentType;
 	
 	public String getName() {
 		return name;
@@ -80,8 +83,12 @@ public class InputSearchBuilding {
 	public void setStaffID(int staffID) {
 		this.staffID = staffID;
 	}
-	
-	
+	public List<String> getValueRentType() {
+		return valueRentType;
+	}
+	public void setValueRentType(List<String> valueRentType) {
+		this.valueRentType = valueRentType;
+	}
 	@Override
 	public String toString() {
 		return "InputSearchBuilding [name=" + name + ", floorArea=" + floorArea + ", districtID=" + districtID

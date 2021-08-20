@@ -8,6 +8,7 @@ public class BuildingEntity {
 	private int numberOfBasement;
 	private int floorArea;
 	private int rentArea;
+	private int rentPrice;
 	private String rentType;
 	private String staffName;
 	public String getName() {
@@ -52,8 +53,12 @@ public class BuildingEntity {
 	public void setRentArea(int rentArea) {
 		this.rentArea = rentArea;
 	}
-
-	
+	public int getRentPrice() {
+		return rentPrice;
+	}
+	public void setRentPrice(int rentPrice) {
+		this.rentPrice = rentPrice;
+	}
 	public String getRentType() {
 		return rentType;
 	}

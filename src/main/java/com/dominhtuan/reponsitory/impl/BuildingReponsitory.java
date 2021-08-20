@@ -38,6 +38,7 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 					buildingEntity.setFloorArea(rs.getInt("floorarea"));
 					buildingEntity.setWard(rs.getString("ward"));
 					buildingEntity.setRentArea(rs.getInt("rentarea"));
+					buildingEntity.setRentPrice(rs.getInt("rentprice"));
 					buildingEntity.setRentType(rs.getString("renttype"));
 					buildingEntity.setNumberOfBasement(rs.getInt("numberofbasement"));
 					buildingEntity.setStaffName(rs.getString("fullname"));
@@ -75,7 +76,7 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 //		on f.id = e.staffid
 //		where 1 = 1
 		StringBuilder sql = new StringBuilder(
-				"select a.id, a.name, a.street, a.ward, a.floorarea,a.numberofbasement,b.name as district,c.value as rentarea,d1.name as renttype, f.fullname\r\n"
+				"select a.id, a.name, a.street, a.ward, a.floorarea,a.numberofbasement,a.rentprice,b.name as district,c.value as rentarea,d1.name as renttype, f.fullname\r\n"
 						+ "from building as a join district as b\r\n" + "on a.districtid = b.id\r\n"
 						+ "left join rentarea as c\r\n" + "on a.id = c.buildingid\r\n"
 						+ "left join buildingrenttype as d\r\n" + "on a.id = d.buildingid\r\n"
@@ -123,6 +124,21 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 					+ inputSearchBuilding.getRentPriceTo() + ")");
 		if (!checkinput.is0(inputSearchBuilding.getStaffID())) {
 			sql.append(" and e.staffid = " + inputSearchBuilding.getStaffID());
+		}
+		if (inputSearchBuilding.getValueRentType().size() > 0) {
+			if (inputSearchBuilding.getValueRentType().size() == 1) {
+				sql.append(" and ( d1.code = '" + inputSearchBuilding.getValueRentType().get(0) + "' )");
+			}
+			if (inputSearchBuilding.getValueRentType().size() == 2) {
+				sql.append(" and ( d1.code = '" + inputSearchBuilding.getValueRentType().get(0) + "' or d1.code = '"
+						+ inputSearchBuilding.getValueRentType().get(1) + "' )");
+			}
+			if (inputSearchBuilding.getValueRentType().size() == 3) {
+				sql.append(" and ( d1.code = '" + inputSearchBuilding.getValueRentType().get(0) + "' or d1.code = '"
+						+ inputSearchBuilding.getValueRentType().get(1) + "'  or d1.code = '"
+						+ inputSearchBuilding.getValueRentType().get(2) + "' )");
+			}
+
 		}
 		return sql.toString();
 	}
