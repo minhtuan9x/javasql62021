@@ -1,15 +1,14 @@
 package com.dominhtuan.view;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 import com.dominhtuan.controller.BuildingController;
 import com.dominhtuan.enums.DistrictEnum;
-import com.dominhtuan.enums.RentTypeEnum;
 import com.dominhtuan.model.input.InputSearchBuilding;
 import com.dominhtuan.model.output.BuildingOutput;
+import com.dominhtuan.util.RentTypeUtil;
 import com.dominhtuan.util.StaffUtil;
 
 public class BuildingView {
@@ -30,6 +29,7 @@ public class BuildingView {
 		Scanner sc = new Scanner(System.in);
 		InputSearchBuilding inputSearchBuilding = new InputSearchBuilding();
 		StaffUtil staffUtil = new StaffUtil();
+		RentTypeUtil rentTypeUtil = new RentTypeUtil();
 		try {
 			System.out.println("CHỨC NĂNG TÌM TÒA NHÀ");
 			System.out.println("Bắt đầu nhập giá trị trường cần tìm!!!!");
@@ -63,8 +63,14 @@ public class BuildingView {
 			sc.nextLine();
 			String staffName = sc.nextLine();
 			int staffID = staffUtil.checkStaffName(staffName);
-			System.out.println("Nhập kiểu thuê cách nhau bằng dấu , ");
-			List<String> rentType = getAllRentType();
+			System.out.println("Danh sách loại tòa nhà: ");
+			rentTypeUtil.showAllRentType();
+			System.out.println("Nhập loại tòa nhà cách nhau bằng dấu , ");
+			String num = sc.nextLine();
+			List<String> rentType = rentTypeUtil.checkRentType(num);
+			if(rentType.size()==0) {
+				System.out.println("Không tìm thấy loại tòa nhà!");
+			}
 
 			inputSearchBuilding.setDistrictID(districtID);
 			inputSearchBuilding.setFloorArea(floorArea);
@@ -97,35 +103,6 @@ public class BuildingView {
 			System.out.println("ID: "+item.getKey()+" Name: "+item.getValue());
 		}
 
-	}
-
-
-	public static List<String> getAllRentType() {
-		List<String> result = new ArrayList<String>();
-		Scanner sc = new Scanner(System.in);
-		int count = 1;
-		for (RentTypeEnum item : RentTypeEnum.values()) {
-			System.out.println(count + ": " + item.getValue());
-			count++;
-		}
-		String a = sc.nextLine();
-		for (String item : a.split(",")) {
-			switch (item) {
-			case "1":
-				result.add("tang-tret");
-				break;
-			case "2":
-				result.add("nguyen-can");
-				break;
-			case "3":
-				result.add("noi-that");
-				break;
-
-			default:
-				break;
-			}
-		}
-		return result;
 	}
 
 	public static void td() {
