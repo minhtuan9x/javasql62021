@@ -1,7 +1,10 @@
 package com.dominhtuan.view;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Scanner;
 
 import com.dominhtuan.controller.BuildingController;
@@ -57,9 +60,20 @@ public class BuildingView {
 			System.out.println("Gía thuê đến: ");
 			int rentPriceTo = sc.nextInt();
 			System.out.println("Danh sách nhân viên phụ trách: ");
-			getAllStaff();
-			System.out.println("Nhập id nhân viên phụ trách: ");
-			int staffID = sc.nextInt();
+//			getAllStaff();
+			for(Map.Entry<Integer,String> item:getAllStaff1().entrySet()) {
+				System.out.println("ID: " + item.getKey() + "  Name: " + item.getValue());	
+			}
+			System.out.println("Nhập tên nhân viên phụ trách: ");
+			sc.nextLine();
+			String StaffName = sc.nextLine();
+			if(getAllStaff1().containsValue(StaffName))
+			{
+				for(Map.Entry<Integer,String> item:getAllStaff1().entrySet()) {
+					if(Objects.equals(StaffName, item.getValue()))
+					System.out.println("ID: " + item.getKey());	
+				}
+			}
 			System.out.println("Nhập kiểu thuê cách nhau bằng dấu , ");
 			List<String> rentType = getAllRentType();
 
@@ -69,7 +83,7 @@ public class BuildingView {
 			inputSearchBuilding.setNumberOfBasement(numberOfBasement);
 			inputSearchBuilding.setRentAreaFrom(rentAreaFrom);
 			inputSearchBuilding.setRentAreaTo(rentAreaTo);
-			inputSearchBuilding.setStaffID(staffID);
+//			inputSearchBuilding.setStaffID(staffID);
 			inputSearchBuilding.setStreet(street);
 			inputSearchBuilding.setWard(ward);
 			inputSearchBuilding.setRentPriceFrom(rentPriceFrom);
@@ -94,6 +108,15 @@ public class BuildingView {
 		for (StaffOutput item : staffController.getAllStaff()) {
 			System.out.println("ID: " + item.getStaffID() + "  Name: " + item.getStaffName());
 		}
+
+	}
+	public static Map<Integer,String> getAllStaff1() {
+		Map<Integer, String > listStaff= new HashMap<Integer,String>();
+		StaffController staffController = new StaffController();
+		for (StaffOutput item : staffController.getAllStaff()) {
+			listStaff.put(item.getStaffID(), item.getStaffName());
+		}
+		return listStaff;
 
 	}
 

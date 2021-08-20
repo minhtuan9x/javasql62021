@@ -6,11 +6,10 @@ import java.sql.DriverManager;
 import com.dominhtuan.reponsitory.IConnectDB;
 
 public class ConnectDB implements IConnectDB {
-	private String DB_URL = "jdbc:mysql://localhost:3306/estatebasic";
+	private String DB_URL = "jdbc:mysql://localhost:3306/estatebasic?useSSL=false";
 	private String USER = "root";
-	private String PASS = "admin";
+	private String PASS = "123456";
 	private Connection conn = null;
-	@Override
 	public Connection connectDB() {
 		// TODO Auto-generated method stub
 		try {
