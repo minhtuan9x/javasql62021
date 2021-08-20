@@ -2,15 +2,15 @@ package com.dominhtuan.view;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import com.dominhtuan.controller.BuildingController;
-import com.dominhtuan.controller.StaffController;
 import com.dominhtuan.enums.DistrictEnum;
 import com.dominhtuan.enums.RentTypeEnum;
 import com.dominhtuan.model.input.InputSearchBuilding;
 import com.dominhtuan.model.output.BuildingOutput;
-import com.dominhtuan.model.output.StaffOutput;
+import com.dominhtuan.util.StaffUtil;
 
 public class BuildingView {
 
@@ -29,6 +29,7 @@ public class BuildingView {
 	public static InputSearchBuilding searchBuilding() {
 		Scanner sc = new Scanner(System.in);
 		InputSearchBuilding inputSearchBuilding = new InputSearchBuilding();
+		StaffUtil staffUtil = new StaffUtil();
 		try {
 			System.out.println("CHỨC NĂNG TÌM TÒA NHÀ");
 			System.out.println("Bắt đầu nhập giá trị trường cần tìm!!!!");
@@ -57,9 +58,11 @@ public class BuildingView {
 			System.out.println("Gía thuê đến: ");
 			int rentPriceTo = sc.nextInt();
 			System.out.println("Danh sách nhân viên phụ trách: ");
-			getAllStaff();
-			System.out.println("Nhập id nhân viên phụ trách: ");
-			int staffID = sc.nextInt();
+			showAllStaff();
+			System.out.println("Nhập tên nhân viên phụ trách: ");
+			sc.nextLine();
+			String staffName = sc.nextLine();
+			int staffID = staffUtil.checkStaffName(staffName);
 			System.out.println("Nhập kiểu thuê cách nhau bằng dấu , ");
 			List<String> rentType = getAllRentType();
 
@@ -88,14 +91,14 @@ public class BuildingView {
 		}
 	}
 
-	public static void getAllStaff() {
-
-		StaffController staffController = new StaffController();
-		for (StaffOutput item : staffController.getAllStaff()) {
-			System.out.println("ID: " + item.getStaffID() + "  Name: " + item.getStaffName());
+	public static void showAllStaff() {
+		StaffUtil staffUtil = new StaffUtil();
+		for(Map.Entry<Integer, String> item : staffUtil.getAllStaff().entrySet()) {
+			System.out.println("ID: "+item.getKey()+" Name: "+item.getValue());
 		}
 
 	}
+
 
 	public static List<String> getAllRentType() {
 		List<String> result = new ArrayList<String>();
