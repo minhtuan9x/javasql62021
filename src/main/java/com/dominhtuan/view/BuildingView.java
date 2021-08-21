@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 import com.dominhtuan.controller.BuildingController;
 import com.dominhtuan.model.input.InputSearchBuilding;
-import com.dominhtuan.model.output.BuildingOutput;
+import com.dominhtuan.util.BuildingUtil;
 import com.dominhtuan.util.DistrictUtil;
 import com.dominhtuan.util.RentTypeUtil;
 import com.dominhtuan.util.StaffUtil;
@@ -15,8 +15,9 @@ public class BuildingView {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		BuildingController buildingController = new BuildingController();
+		BuildingUtil buildingUtil = new BuildingUtil();
 		try {
-			showBuilding(buildingController.getAllBuiding(searchBuilding()));
+			buildingUtil.showBuilding(buildingController.getAllBuiding(searchBuilding()));
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -97,22 +98,6 @@ public class BuildingView {
 
 
 
-	public static void td() {
-		System.out
-				.println(String.format("%-30s %-30s %-15s %-15s %-15s %-15s %-15s %-15s %-15s %-15s ", "Name", "Street",
-						"Ward", "District", "NOB", "Floor area", "Rent Area", "Rent Price", "Rent Type", "Staff Name"));
-	}
-
-	public static void showBuilding(List<BuildingOutput> buildingOutputs) {
-		System.out.println("======================");
-		if (buildingOutputs.size() <= 0) {
-			System.out.println("Không tìm thấy!!!");
-			return;
-		}
-		td();
-		for (BuildingOutput item : buildingOutputs) {
-			System.out.println(item);
-		}
-	}
+	
 
 }
