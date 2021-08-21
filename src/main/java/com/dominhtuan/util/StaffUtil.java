@@ -7,13 +7,20 @@ import com.dominhtuan.controller.StaffController;
 import com.dominhtuan.model.output.StaffOutput;
 
 public class StaffUtil {
-	public static Map<Integer, String> getAllStaff() {
+	public Map<Integer, String> getAllStaff() {
 		Map<Integer, String> result = new HashMap<Integer, String>();
 		StaffController staffController = new StaffController();
 		for (StaffOutput item : staffController.getAllStaff()) {
 			result.put(item.getStaffID(), item.getStaffName());
 		}
 		return result;
+	}
+
+	public void showAllStaff() {
+		for (Map.Entry<Integer, String> item : getAllStaff().entrySet()) {
+			System.out.println("ID: " + item.getKey() + " Name: " + item.getValue());
+		}
+
 	}
 
 	public int checkStaffName(String staffName) {

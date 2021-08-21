@@ -137,7 +137,6 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 						+ inputSearchBuilding.getValueRentType().get(1) + "'  or d1.code = '"
 						+ inputSearchBuilding.getValueRentType().get(2) + "' )");
 			}
-
 		}
 		System.out.println(sql);
 		return sql.toString();

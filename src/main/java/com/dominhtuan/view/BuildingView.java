@@ -1,13 +1,12 @@
 package com.dominhtuan.view;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 import com.dominhtuan.controller.BuildingController;
-import com.dominhtuan.enums.DistrictEnum;
 import com.dominhtuan.model.input.InputSearchBuilding;
 import com.dominhtuan.model.output.BuildingOutput;
+import com.dominhtuan.util.DistrictUtil;
 import com.dominhtuan.util.RentTypeUtil;
 import com.dominhtuan.util.StaffUtil;
 
@@ -30,6 +29,7 @@ public class BuildingView {
 		InputSearchBuilding inputSearchBuilding = new InputSearchBuilding();
 		StaffUtil staffUtil = new StaffUtil();
 		RentTypeUtil rentTypeUtil = new RentTypeUtil();
+		DistrictUtil districtUtil = new DistrictUtil();
 		try {
 			System.out.println("CHỨC NĂNG TÌM TÒA NHÀ");
 			System.out.println("Bắt đầu nhập giá trị trường cần tìm!!!!");
@@ -39,10 +39,14 @@ public class BuildingView {
 			System.out.println("Nhập diện tích sàn: ");
 			int floorArea = sc.nextInt();
 			System.out.println("Danh sách quận: ");
-			getDistrict();
+			districtUtil.showDistrict();
 			System.out.println("Nhập code quận: ");
 			sc.nextLine();
 			String districtID = sc.nextLine();
+			if (districtUtil.checkDistrictInput(districtID).equals("0")) {
+				System.out.println("Không tìm thấy quận theo code!");
+				districtID = "0";
+			}
 			System.out.println("Nhập phường: ");
 			String ward = sc.nextLine();
 			System.out.println("Nhập đường: ");
@@ -58,7 +62,7 @@ public class BuildingView {
 			System.out.println("Gía thuê đến: ");
 			int rentPriceTo = sc.nextInt();
 			System.out.println("Danh sách nhân viên phụ trách: ");
-			showAllStaff();
+			staffUtil.showAllStaff();
 			System.out.println("Nhập tên nhân viên phụ trách: ");
 			sc.nextLine();
 			String staffName = sc.nextLine();
@@ -68,7 +72,7 @@ public class BuildingView {
 			System.out.println("Nhập loại tòa nhà cách nhau bằng dấu , ");
 			String num = sc.nextLine();
 			List<String> rentType = rentTypeUtil.checkRentType(num);
-			if(rentType.size()==0) {
+			if (rentType.size() == 0) {
 				System.out.println("Không tìm thấy loại tòa nhà!");
 			}
 
@@ -91,19 +95,7 @@ public class BuildingView {
 		return inputSearchBuilding;
 	}
 
-	public static void getDistrict() {
-		for (DistrictEnum item : DistrictEnum.values()) {
-			System.out.println(item + ": " + item.getValue());
-		}
-	}
 
-	public static void showAllStaff() {
-		StaffUtil staffUtil = new StaffUtil();
-		for(Map.Entry<Integer, String> item : staffUtil.getAllStaff().entrySet()) {
-			System.out.println("ID: "+item.getKey()+" Name: "+item.getValue());
-		}
-
-	}
 
 	public static void td() {
 		System.out
