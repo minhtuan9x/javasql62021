@@ -31,7 +31,8 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 					BuildingEntity buildingEntity = new BuildingEntity();
 					buildingEntity.setName(rs.getString("name"));
 					buildingEntity.setStreet(rs.getString("street"));
-					buildingEntity.setDistrict(rs.getString("district"));
+					buildingEntity.setDistrictId(rs.getInt("districtid"));
+					buildingEntity.setDistrictName(rs.getString("district"));
 					buildingEntity.setFloorArea(rs.getInt("floorarea"));
 					buildingEntity.setWard(rs.getString("ward"));
 					buildingEntity.setRentArea(rs.getInt("rentarea"));
@@ -58,7 +59,7 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 
 	public String Query(InputSearchBuilding inputSearchBuilding) {
 		Checkinput checkinput = new Checkinput();
-//		select a.id, a.name, a.street, a.ward, a.floorarea,a.numberofbasement,a.rentprice,b.name as district,c.value as rentarea,d1.name as renttype, f.fullname
+//		select a.id, a.name, a.street, a.ward, a.floorarea,a.numberofbasement,a.rentprice,,a.districtid,b.name as district,c.value as rentarea,d1.name as renttype, f.fullname
 //		from building as a join district as b
 //		on a.districtid = b.id
 //		left join rentarea as c
@@ -73,7 +74,7 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 //		on f.id = e.staffid
 //		where 1 = 1
 		StringBuilder sql = new StringBuilder(
-				"select a.id, a.name, a.street, a.ward, a.floorarea,a.numberofbasement,a.rentprice,b.name as district,c.value as rentarea,d1.name as renttype, f.fullname\r\n"
+				"select a.id, a.name, a.street, a.ward, a.floorarea,a.numberofbasement,a.rentprice,a.districtid,b.name as district,c.value as rentarea,d1.name as renttype, f.fullname\r\n"
 						+ "from building as a join district as b\r\n" + "on a.districtid = b.id\r\n"
 						+ "left join rentarea as c\r\n" + "on a.id = c.buildingid\r\n"
 						+ "left join buildingrenttype as d\r\n" + "on a.id = d.buildingid\r\n"
