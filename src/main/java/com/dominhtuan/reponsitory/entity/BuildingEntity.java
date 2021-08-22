@@ -101,4 +101,13 @@ public class BuildingEntity {
 		this.staffName = staffName;
 	}
 
+	@Override
+	public String toString() {
+		return "BuildingEntity [name=" + name + ", street=" + street + ", ward=" + ward + ", districtId=" + districtId
+				+ ", districtName=" + districtName + ", numberOfBasement=" + numberOfBasement + ", floorArea="
+				+ floorArea + ", rentArea=" + rentArea + ", rentPrice=" + rentPrice + ", rentType=" + rentType
+				+ ", staffName=" + staffName + "]";
+	}
+	
+
 }

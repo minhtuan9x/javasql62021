@@ -26,7 +26,7 @@ public class BuildingService implements IBuildingService {
 				if (item2.equals(item.getName())) {
 					for (BuildingEntity item3 : ds) {
 						if (item2.equals(item3.getName())) {
-							if (item3.getRentArea() != 0)
+				  			if (item3.getRentArea() != 0)
 								rentArea += item3.getRentArea() + ",";
 							if (item3.getRentType() != null)
 								rentType += item3.getRentType() + ",";

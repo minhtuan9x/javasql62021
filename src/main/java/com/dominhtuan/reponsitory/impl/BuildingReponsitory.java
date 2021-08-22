@@ -35,15 +35,11 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 					buildingEntity.setFloorArea(rs.getInt("floorarea"));
 					buildingEntity.setWard(rs.getString("ward"));
 					buildingEntity.setRentPrice(rs.getInt("rentprice"));
+					buildingEntity.setDistrictName(rs.getString("district"));
+					buildingEntity.setRentArea(rs.getInt("rentarea"));
 					buildingEntity.setNumberOfBasement(rs.getInt("numberofbasement"));
 					for (String item : checkrs) {
 						switch (item) {
-						case "district":
-							buildingEntity.setDistrictName(rs.getString("district"));
-							break;
-						case "rentarea":
-							buildingEntity.setRentArea(rs.getInt("rentarea"));
-							break;
 						case "fullname":
 							buildingEntity.setStaffName(rs.getString("fullname"));
 							break;
@@ -89,92 +85,88 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 //		left join user as f
 //		on f.id = e.staffid
 //		where 1 = 1
-		StringBuilder sql = new StringBuilder();
 		StringBuilder select = new StringBuilder(
-				"select a.id, a.name, a.street, a.ward, a.floorarea,a.numberofbasement,a.rentprice,a.districtid");
-		StringBuilder from = new StringBuilder("\nfrom building as a\n");
-		StringBuilder join = new StringBuilder();
-		StringBuilder query = new StringBuilder("where 1 = 1 \n");
-		select.append(",b.name as district");
-		rsset("district");
-		join.append("left join district as b\non a.districtid = b.id\n");
+				"select a.id, a.name, a.street, a.ward, a.floorarea,a.numberofbasement,a.rentprice,a.districtid,b.name as district,"
+						+ "c.value as rentarea");
+
+		StringBuilder sql = new StringBuilder("\nfrom building as a" + "\nleft join district as b"
+				+ "\non a.districtid = b.id" + "\nleft join rentarea as c" + "\non a.id = c.buildingid");
+		if (inputSearchBuilding.getValueRentType().size() > 0) {
+			select.append(",d1.name as renttype");
+			rsset("renttype");
+			sql.append("\nleft join buildingrenttype as d\r\n" + "on a.id = d.buildingid\r\n"
+					+ "left join renttype as d1\r\n" + "on d1.id = d.renttypeid\n");
+		}
+		if (!checkinput.is0(inputSearchBuilding.getStaffID())) {
+			select.append(", f.fullname");
+			rsset("fullname");
+			sql.append("left join assignmentbuilding as e\non a.id = e.buildingid\n" + "left join user as f\r\n"
+					+ "on f.id = e.staffid\n");
+		}
+		
+		sql.append("\nwhere 1 = 1");
+
 		if (!checkinput.is0(inputSearchBuilding.getName())) {
-			query.append(" and a.name like '%" + inputSearchBuilding.getName() + "%'");
+			sql.append(" and a.name like '%" + inputSearchBuilding.getName() + "%'");
 		}
 		if (!checkinput.is0(inputSearchBuilding.getFloorArea())) {
-			query.append(" and a.floorarea = " + inputSearchBuilding.getFloorArea());
+			sql.append(" and a.floorarea = " + inputSearchBuilding.getFloorArea());
 		}
 		if (!checkinput.is0(inputSearchBuilding.getDistrictID())) {
 
-			query.append(" and b.code = '" + inputSearchBuilding.getDistrictID() + "'");
+			sql.append(" and b.code = '" + inputSearchBuilding.getDistrictID() + "'");
 		}
 		if (!checkinput.is0(inputSearchBuilding.getWard())) {
-			query.append(" and a.ward like '%" + inputSearchBuilding.getWard() + "%'");
+			sql.append(" and a.ward like '%" + inputSearchBuilding.getWard() + "%'");
 		}
 		if (!checkinput.is0(inputSearchBuilding.getStreet())) {
-			query.append(" and a.street like '%" + inputSearchBuilding.getStreet() + "%'");
+			sql.append(" and a.street like '%" + inputSearchBuilding.getStreet() + "%'");
 		}
 		if (!checkinput.is0(inputSearchBuilding.getNumberOfBasement())) {
-			query.append(" and a.numberofbasement = " + inputSearchBuilding.getNumberOfBasement());
-		}
-		if (!checkinput.is0(inputSearchBuilding.getRentAreaFrom())
-				|| !checkinput.is0(inputSearchBuilding.getRentAreaTo())) {
-			select.append(",c.value as rentarea");
-			rsset("rentarea");
-			join.append("left join rentarea as c\non a.id = c.buildingid\n");
+			sql.append(" and a.numberofbasement = " + inputSearchBuilding.getNumberOfBasement());
 		}
 		if (!checkinput.is0(inputSearchBuilding.getRentAreaFrom())
 				&& checkinput.is0(inputSearchBuilding.getRentAreaTo())) {
-			query.append(" and c.value > " + inputSearchBuilding.getRentAreaFrom());
+			sql.append(" and c.value > " + inputSearchBuilding.getRentAreaFrom());
 
 		} else if (checkinput.is0(inputSearchBuilding.getRentAreaFrom())
 				&& !checkinput.is0(inputSearchBuilding.getRentAreaTo())) {
-			query.append(" and c.value < " + inputSearchBuilding.getRentAreaTo());
+			sql.append(" and c.value < " + inputSearchBuilding.getRentAreaTo());
 		} else if (!checkinput.is0(inputSearchBuilding.getRentAreaFrom())
 				&& !checkinput.is0(inputSearchBuilding.getRentAreaTo())) {
-			query.append(" and (c.value > " + inputSearchBuilding.getRentAreaFrom() + " and c.value < "
+			sql.append(" and (c.value > " + inputSearchBuilding.getRentAreaFrom() + " and c.value < "
 					+ inputSearchBuilding.getRentAreaTo() + ")");
 		}
 		if (!checkinput.is0(inputSearchBuilding.getRentPriceFrom())
 				&& checkinput.is0(inputSearchBuilding.getRentPriceTo())) {
-			query.append(" and a.rentprice > " + inputSearchBuilding.getRentPriceFrom());
+			sql.append(" and a.rentprice > " + inputSearchBuilding.getRentPriceFrom());
 
 		} else if (checkinput.is0(inputSearchBuilding.getRentPriceFrom())
 				&& !checkinput.is0(inputSearchBuilding.getRentPriceTo())) {
-			query.append(" and a.rentprice < " + inputSearchBuilding.getRentPriceTo());
+			sql.append(" and a.rentprice < " + inputSearchBuilding.getRentPriceTo());
 		} else if (!checkinput.is0(inputSearchBuilding.getRentPriceFrom())
 				&& !checkinput.is0(inputSearchBuilding.getRentPriceTo()))
-			query.append(" and (a.rentprice > " + inputSearchBuilding.getRentPriceFrom() + " and a.rentprice < "
+			sql.append(" and (a.rentprice > " + inputSearchBuilding.getRentPriceFrom() + " and a.rentprice < "
 					+ inputSearchBuilding.getRentPriceTo() + ")");
 		if (!checkinput.is0(inputSearchBuilding.getStaffID())) {
-			select.append(", f.fullname");
-			rsset("fullname");
-			join.append("left join assignmentbuilding as e\non a.id = e.buildingid\n" + "left join user as f\r\n"
-					+ "on f.id = e.staffid\n");
-			query.append(" and e.staffid = " + inputSearchBuilding.getStaffID());
+			sql.append(" and e.staffid = " + inputSearchBuilding.getStaffID());
 		}
 		if (inputSearchBuilding.getValueRentType().size() > 0) {
-			select.append(",d1.name as renttype");
-			rsset("renttype");
-			join.append("left join buildingrenttype as d\r\n" + "on a.id = d.buildingid\r\n"
-					+ "left join renttype as d1\r\n" + "on d1.id = d.renttypeid\n");
 			if (inputSearchBuilding.getValueRentType().size() == 1) {
-				query.append(" and ( d1.code = '" + inputSearchBuilding.getValueRentType().get(0) + "' )");
+				sql.append(" and ( d1.code = '" + inputSearchBuilding.getValueRentType().get(0) + "' )");
 			}
 			if (inputSearchBuilding.getValueRentType().size() == 2) {
-				query.append(" and ( d1.code = '" + inputSearchBuilding.getValueRentType().get(0) + "' or d1.code = '"
+				sql.append(" and ( d1.code = '" + inputSearchBuilding.getValueRentType().get(0) + "' or d1.code = '"
 						+ inputSearchBuilding.getValueRentType().get(1) + "' )");
 			}
 			if (inputSearchBuilding.getValueRentType().size() == 3) {
-				query.append(" and ( d1.code = '" + inputSearchBuilding.getValueRentType().get(0) + "' or d1.code = '"
+				sql.append(" and ( d1.code = '" + inputSearchBuilding.getValueRentType().get(0) + "' or d1.code = '"
 						+ inputSearchBuilding.getValueRentType().get(1) + "'  or d1.code = '"
 						+ inputSearchBuilding.getValueRentType().get(2) + "' )");
 			}
 		}
-		sql.append(select.toString() + from.toString() + join.toString() + query.toString());
-		System.out.println("=====");
-		System.out.println(sql);
-		return sql.toString();
+		System.out.println(select.toString() + sql.toString());
+		return select.toString() + sql.toString();
 	}
 
 	List<String> checkrs = new ArrayList<>();
