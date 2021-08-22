@@ -100,7 +100,7 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 		if (!checkinput.is0(inputSearchBuilding.getStaffID())) {
 			select.append(", f.fullname");
 			rsset("fullname");
-			sql.append("left join assignmentbuilding as e\non a.id = e.buildingid\n" + "left join user as f\r\n"
+			sql.append("\nleft join assignmentbuilding as e\non a.id = e.buildingid\n" + "left join user as f\r\n"
 					+ "on f.id = e.staffid\n");
 		}
 		
