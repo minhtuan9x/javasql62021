@@ -5,7 +5,7 @@ public class BuildingOutput {
 	private String addresss;
 	private int numberOfBasement;
 	private int floorArea;
-	private int rentArea;
+	private String rentArea;
 	private int rentPrice;
 	private String rentType;
 	private String staffName;
@@ -42,11 +42,13 @@ public class BuildingOutput {
 		this.floorArea = floorArea;
 	}
 
-	public int getRentArea() {
+
+
+	public String getRentArea() {
 		return rentArea;
 	}
 
-	public void setRentArea(int rentArea) {
+	public void setRentArea(String rentArea) {
 		this.rentArea = rentArea;
 	}
 
@@ -73,11 +75,37 @@ public class BuildingOutput {
 	public void setStaffName(String staffName) {
 		this.staffName = staffName;
 	}
+	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		BuildingOutput other = (BuildingOutput) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
 
 	@Override
 	public String toString() {
 		String s;
-		s = String.format("%-30s %-45s %-15s %-15s %-15s %-15s %-15s %-15s ", this.name, this.addresss,
+		s = String.format("%-30s %-45s %-15s %-15s %-15s %-15s %-30s %-15s ", this.name, this.addresss,
 				this.numberOfBasement, this.floorArea, this.rentArea, this.rentPrice, this.rentType, this.staffName);
 		return s;
 	}

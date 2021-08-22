@@ -36,8 +36,6 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 					buildingEntity.setWard(rs.getString("ward"));
 					buildingEntity.setRentPrice(rs.getInt("rentprice"));
 					buildingEntity.setNumberOfBasement(rs.getInt("numberofbasement"));
-					buildingEntities.add(buildingEntity);
-					
 					for (String item : checkrs) {
 						switch (item) {
 						case "district":
@@ -57,6 +55,7 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 							break;
 						}
 					}
+					buildingEntities.add(buildingEntity);
 				}
 			}
 		} catch (Exception e) {
@@ -96,6 +95,9 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 		StringBuilder from = new StringBuilder("\nfrom building as a\n");
 		StringBuilder join = new StringBuilder();
 		StringBuilder query = new StringBuilder("where 1 = 1 \n");
+		select.append(",b.name as district");
+		rsset("district");
+		join.append("left join district as b\non a.districtid = b.id\n");
 		if (!checkinput.is0(inputSearchBuilding.getName())) {
 			query.append(" and a.name like '%" + inputSearchBuilding.getName() + "%'");
 		}
@@ -103,9 +105,7 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 			query.append(" and a.floorarea = " + inputSearchBuilding.getFloorArea());
 		}
 		if (!checkinput.is0(inputSearchBuilding.getDistrictID())) {
-			select.append(",b.name as district");
-			rsset("district");
-			join.append("left join district as b\non a.districtid = b.id\n");
+
 			query.append(" and b.code = '" + inputSearchBuilding.getDistrictID() + "'");
 		}
 		if (!checkinput.is0(inputSearchBuilding.getWard())) {
