@@ -20,6 +20,7 @@ public class BuildingService implements IBuildingService {
 		List<String> names = removeDuplicateName(ds);
 		String rentType = "";
 		String rentArea = "";
+		//
 		for (BuildingEntity item : ds) {
 			for (String item2 : names) {
 				if (item2.equals(item.getName())) {
