@@ -19,14 +19,12 @@ public class BuildingService implements IBuildingService {
 		for (BuildingEntity item : buildingReponsitory.getAllBuilding(inputSearchBuilding)) {
 			buildingOutput = new BuildingOutput();
 			buildingOutput.setName(item.getName());
-			buildingOutput.setDistrict(item.getDistrictName());
+			buildingOutput.setAddresss(item.getStreet()+" - "+item.getWard()+" - "+item.getDistrictName());
 			buildingOutput.setFloorArea(item.getFloorArea());
 			buildingOutput.setNumberOfBasement(item.getNumberOfBasement());
 			buildingOutput.setRentArea(item.getRentArea());
 			buildingOutput.setRentPrice(item.getRentPrice());
 			buildingOutput.setRentType(item.getRentType());
-			buildingOutput.setStreet(item.getStreet());
-			buildingOutput.setWard(item.getWard());
 			buildingOutput.setStaffName(item.getStaffName());
 			buildingOutputs.add(buildingOutput);
 		}
