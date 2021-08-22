@@ -36,8 +36,7 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 					buildingEntity.setWard(rs.getString("ward"));
 					buildingEntity.setRentPrice(rs.getInt("rentprice"));
 					buildingEntity.setNumberOfBasement(rs.getInt("numberofbasement"));
-					buildingEntities.add(buildingEntity);
-					
+				
 					for (String item : checkrs) {
 						switch (item) {
 						case "district":
@@ -57,6 +56,7 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 							break;
 						}
 					}
+					buildingEntities.add(buildingEntity);
 				}
 			}
 		} catch (Exception e) {
