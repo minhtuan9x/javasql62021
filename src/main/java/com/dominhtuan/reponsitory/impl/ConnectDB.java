@@ -16,7 +16,6 @@ public class ConnectDB implements IConnectDB {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
-			System.out.println("Connect success!!");
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.getMessage());

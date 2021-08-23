@@ -1,17 +1,26 @@
 package com.dominhtuan.reponsitory.entity;
 
 public class BuildingEntity {
+	private int id;
 	private String name;
 	private String street;
 	private String ward;
 	private int districtId;
-	private String districtName;
 	private int numberOfBasement;
 	private int floorArea;
 	private int rentArea;
 	private int rentPrice;
 	private String rentType;
 	private String staffName;
+	
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
@@ -43,14 +52,6 @@ public class BuildingEntity {
 
 	public void setDistrictId(int districtId) {
 		this.districtId = districtId;
-	}
-
-	public String getDistrictName() {
-		return districtName;
-	}
-
-	public void setDistrictName(String districtName) {
-		this.districtName = districtName;
 	}
 
 	public int getNumberOfBasement() {
@@ -101,13 +102,6 @@ public class BuildingEntity {
 		this.staffName = staffName;
 	}
 
-	@Override
-	public String toString() {
-		return "BuildingEntity [name=" + name + ", street=" + street + ", ward=" + ward + ", districtId=" + districtId
-				+ ", districtName=" + districtName + ", numberOfBasement=" + numberOfBasement + ", floorArea="
-				+ floorArea + ", rentArea=" + rentArea + ", rentPrice=" + rentPrice + ", rentType=" + rentType
-				+ ", staffName=" + staffName + "]";
-	}
 	
 
 }

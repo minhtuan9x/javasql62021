@@ -29,13 +29,13 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 				rs = stmt.executeQuery(Query(inputSearchBuilding));
 				while (rs.next()) {
 					BuildingEntity buildingEntity = new BuildingEntity();
+					buildingEntity.setId(rs.getInt("id"));
 					buildingEntity.setName(rs.getString("name"));
 					buildingEntity.setStreet(rs.getString("street"));
 					buildingEntity.setDistrictId(rs.getInt("districtid"));
 					buildingEntity.setFloorArea(rs.getInt("floorarea"));
 					buildingEntity.setWard(rs.getString("ward"));
 					buildingEntity.setRentPrice(rs.getInt("rentprice"));
-					buildingEntity.setDistrictName(rs.getString("district"));
 					buildingEntity.setRentArea(rs.getInt("rentarea"));
 					buildingEntity.setNumberOfBasement(rs.getInt("numberofbasement"));
 					for (String item : checkrs) {
@@ -86,11 +86,10 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 //		on f.id = e.staffid
 //		where 1 = 1
 		StringBuilder select = new StringBuilder(
-				"select a.id, a.name, a.street, a.ward, a.floorarea,a.numberofbasement,a.rentprice,a.districtid,b.name as district,"
+				"select a.id, a.name, a.street, a.ward, a.floorarea,a.numberofbasement,a.rentprice,a.districtid,"
 						+ "c.value as rentarea");
 
-		StringBuilder sql = new StringBuilder("\nfrom building as a" + "\nleft join district as b"
-				+ "\non a.districtid = b.id" + "\nleft join rentarea as c" + "\non a.id = c.buildingid");
+		StringBuilder sql = new StringBuilder("\nfrom building as a\nleft join rentarea as c" + "\non a.id = c.buildingid");
 		if (inputSearchBuilding.getValueRentType().size() > 0) {
 			select.append(",d1.name as renttype");
 			rsset("renttype");
@@ -100,7 +99,7 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 		if (!checkinput.is0(inputSearchBuilding.getStaffID())) {
 			select.append(", f.fullname");
 			rsset("fullname");
-			sql.append("left join assignmentbuilding as e\non a.id = e.buildingid\n" + "left join user as f\r\n"
+			sql.append("\nleft join assignmentbuilding as e\non a.id = e.buildingid\n" + "left join user as f\r\n"
 					+ "on f.id = e.staffid\n");
 		}
 		

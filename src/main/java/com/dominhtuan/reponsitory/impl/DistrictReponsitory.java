@@ -49,4 +49,28 @@ public class DistrictReponsitory implements IDistrictReponsitory {
 		return districtEntities;
 	}
 
+	@Override
+	public String findByBuildingId(int buildingId) {
+		// TODO Auto-generated method stub
+		String districtName = null;
+		try {
+			conn = connectDB.connectDB();
+			stmt = conn.createStatement();
+			String sql = "select a.id, b.name"
+					+ "\nfrom building as a "
+					+ "\nleft join district as b"
+					+ "\non a.districtid = b.id"
+					+ "\nwhere a.id = "+buildingId;
+			rs = stmt.executeQuery(sql);
+			if(rs != null) {
+				while(rs.next()) {
+					return rs.getString("name");
+				}
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return districtName;
+	}
+
 }

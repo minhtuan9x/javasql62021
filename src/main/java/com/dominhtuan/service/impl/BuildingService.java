@@ -7,6 +7,7 @@ import com.dominhtuan.model.input.InputSearchBuilding;
 import com.dominhtuan.model.output.BuildingOutput;
 import com.dominhtuan.reponsitory.entity.BuildingEntity;
 import com.dominhtuan.reponsitory.impl.BuildingReponsitory;
+import com.dominhtuan.reponsitory.impl.DistrictReponsitory;
 import com.dominhtuan.service.IBuildingService;
 
 public class BuildingService implements IBuildingService {
@@ -15,18 +16,19 @@ public class BuildingService implements IBuildingService {
 		// TODO Auto-generated method stub
 		List<BuildingOutput> buildingOutputs = new ArrayList<BuildingOutput>();
 		BuildingReponsitory buildingReponsitory = new BuildingReponsitory();
+		DistrictReponsitory districtReponsitory = new DistrictReponsitory();
 		List<BuildingEntity> ds = buildingReponsitory.getAllBuilding(inputSearchBuilding);
 		BuildingOutput buildingOutput;
-		List<String> names = removeDuplicateName(ds);
+		List<Integer> ids = removeDuplicateID(ds);
 		String rentType = "";
 		String rentArea = "";
 		//
 		for (BuildingEntity item : ds) {
-			for (String item2 : names) {
-				if (item2.equals(item.getName())) {
+			for (Integer item2 : ids) {
+				if (item2 == item.getId()) {
 					for (BuildingEntity item3 : ds) {
-						if (item2.equals(item3.getName())) {
-				  			if (item3.getRentArea() != 0)
+						if (item2 == item3.getId()) {
+							if (item3.getRentArea() != 0)
 								rentArea += item3.getRentArea() + ",";
 							if (item3.getRentType() != null)
 								rentType += item3.getRentType() + ",";
@@ -41,7 +43,8 @@ public class BuildingService implements IBuildingService {
 			rentType = removeComma(rentType);
 			buildingOutput = new BuildingOutput();
 			buildingOutput.setName(item.getName());
-			buildingOutput.setAddresss(item.getStreet() + " - " + item.getWard() + " - " + item.getDistrictName());
+			buildingOutput.setAddresss(item.getStreet() + " - " + item.getWard() + " - "
+					+ districtReponsitory.findByBuildingId(item.getId()));
 			buildingOutput.setFloorArea(item.getFloorArea());
 			buildingOutput.setNumberOfBasement(item.getNumberOfBasement());
 			buildingOutput.setRentArea(rentArea);
@@ -73,7 +76,8 @@ public class BuildingService implements IBuildingService {
 			result += item2 + ",";
 		return result;
 	}
-	public List<BuildingOutput> removeDuplicateList(List<BuildingOutput> buildingOutputs){
+
+	public List<BuildingOutput> removeDuplicateList(List<BuildingOutput> buildingOutputs) {
 		List<BuildingOutput> results = new ArrayList<>();
 		for (BuildingOutput item : buildingOutputs) {
 			if (!results.contains(item)) {
@@ -82,19 +86,21 @@ public class BuildingService implements IBuildingService {
 		}
 		return results;
 	}
-	public List<String> removeDuplicateName(List<BuildingEntity> buildingEntities){
-		List<String> names = new ArrayList<>();
+
+	public List<Integer> removeDuplicateID(List<BuildingEntity> buildingEntities) {
+		List<Integer> ids = new ArrayList<>();
 		for (BuildingEntity item : buildingEntities) {
-			if (!names.contains(item.getName())) {
-				names.add(item.getName());
+			if (!ids.contains(item.getId())) {
+				ids.add(item.getId());
 			}
 		}
-		return names;
+		return ids;
 	}
+
 	public String removeComma(String input) {
-		String result= "";
-		for(int i = 0;i<input.length()-1;i++) {
-			result+=input.charAt(i);
+		String result = "";
+		for (int i = 0; i < input.length() - 1; i++) {
+			result += input.charAt(i);
 		}
 		return result;
 	}

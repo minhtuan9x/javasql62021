@@ -6,4 +6,5 @@ import com.dominhtuan.reponsitory.entity.DistrictEntity;
 
 public interface IDistrictReponsitory {
 	List<DistrictEntity> getAllDistrict();
+	String findByBuildingId(int buildingId);
 }
