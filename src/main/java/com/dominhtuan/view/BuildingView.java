@@ -65,11 +65,11 @@ public class BuildingView {
 			System.out.println("Diện tích đến: ");
 			int rentAreaTo = sc.nextInt();
 			System.out.println("Gía thuê từ: ");
-//			int rentPriceFrom = sc.nextInt();
-			int rentPriceFrom = 0;
+			int rentPriceFrom = sc.nextInt();
+//			int rentPriceFrom = 0;
 			System.out.println("Gía thuê đến: ");
-//			int rentPriceTo = sc.nextInt();
-			int rentPriceTo = 0;
+			int rentPriceTo = sc.nextInt();
+//			int rentPriceTo = 0;
 			System.out.println("Danh sách nhân viên phụ trách: ");
 			staffUtil.showAllStaff();
 			System.out.println("Nhập tên nhân viên phụ trách: ");
