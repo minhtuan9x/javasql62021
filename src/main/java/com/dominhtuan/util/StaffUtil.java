@@ -40,4 +40,12 @@ public class StaffUtil {
 		}
 		return result;
 	}
+	public String findStaffNameByID(int id) {
+		for(Map.Entry<Integer, String> item : getAllStaff().entrySet()) {
+			if(id == item.getKey())
+				return item.getValue();
+		}
+		
+		return null;
+	}
 }
