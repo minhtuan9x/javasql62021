@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.dominhtuan.model.input.InputSearchBuilding;
-import com.dominhtuan.model.output.BuildingIDandNameOutput;
 import com.dominhtuan.model.output.BuildingOutput;
 import com.dominhtuan.reponsitory.entity.BuildingEntity;
-import com.dominhtuan.reponsitory.entity.BuildingIDandNameEntity;
 import com.dominhtuan.reponsitory.impl.BuildingReponsitory;
 import com.dominhtuan.reponsitory.impl.DistrictReponsitory;
 import com.dominhtuan.service.IBuildingService;
@@ -44,7 +42,6 @@ public class BuildingService implements IBuildingService {
 			rentArea = removeComma(rentArea);
 			rentType = removeComma(rentType);
 			buildingOutput = new BuildingOutput();
-			buildingOutput.setId(item.getId());
 			buildingOutput.setName(item.getName());
 			buildingOutput.setAddresss(item.getStreet() + " - " + item.getWard() + " - "
 					+ districtReponsitory.findByBuildingId(item.getId()));
@@ -106,19 +103,5 @@ public class BuildingService implements IBuildingService {
 			result += input.charAt(i);
 		}
 		return result;
-	}
-
-	@Override
-	public List<BuildingIDandNameOutput> getIDandNameBuilding() {
-		// TODO Auto-generated method stub
-		List<BuildingIDandNameOutput> buildingIDandNameOutputs = new ArrayList<>();
-		BuildingReponsitory buildingReponsitory = new BuildingReponsitory();
-		for(BuildingIDandNameEntity item : buildingReponsitory.getAllIDandNameBuilding()) {
-			BuildingIDandNameOutput buildingIDandNameOutput = new BuildingIDandNameOutput();
-			buildingIDandNameOutput.setBuildingID(item.getBuildingID());
-			buildingIDandNameOutput.setBuildingName(item.getBuildingName());
-			buildingIDandNameOutputs.add(buildingIDandNameOutput);
-		}
-		return buildingIDandNameOutputs;
 	}
 }

@@ -11,7 +11,6 @@ import java.util.List;
 import com.dominhtuan.model.input.InputSearchBuilding;
 import com.dominhtuan.reponsitory.IBuildingReponsitory;
 import com.dominhtuan.reponsitory.entity.BuildingEntity;
-import com.dominhtuan.reponsitory.entity.BuildingIDandNameEntity;
 import com.dominhtuan.util.Checkinput;
 
 public class BuildingReponsitory implements IBuildingReponsitory {
@@ -61,8 +60,6 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 		} finally {
 			try {
 				conn.close();
-				rs.close();
-				stmt.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -172,39 +169,6 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 	public boolean rsset(String input) {
 		checkrs.add(input);
 		return true;
-	}
-
-	@Override
-	public List<BuildingIDandNameEntity> getAllIDandNameBuilding() {
-		// TODO Auto-generated method stub
-		List<BuildingIDandNameEntity> buildingIDandNameEntities = new ArrayList<>();
-		try {
-			conn = connectDB.connectDB();
-			stmt = conn.createStatement();
-			String sql = "select id, name from building";
-			rs = stmt.executeQuery(sql);
-			if(rs!=null) {
-				while(rs.next()) {
-					BuildingIDandNameEntity buildingIDandNameEntity = new BuildingIDandNameEntity();
-					buildingIDandNameEntity.setBuildingID(rs.getInt("id"));
-					buildingIDandNameEntity.setBuildingName(rs.getString("name"));
-					buildingIDandNameEntities.add(buildingIDandNameEntity);
-				}
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println(e.getMessage());
-		}finally {
-			try {
-				conn.close();
-				rs.close();
-				stmt.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return buildingIDandNameEntities;
 	}
 
 }

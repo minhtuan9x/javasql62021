@@ -1,12 +1,10 @@
 package com.dominhtuan.util;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 import com.dominhtuan.controller.BuildingController;
 import com.dominhtuan.model.input.InputSearchBuilding;
-import com.dominhtuan.model.output.BuildingIDandNameOutput;
 import com.dominhtuan.model.output.BuildingOutput;
 
 public class BuildingUtil {
@@ -28,6 +26,7 @@ public class BuildingUtil {
 			System.out.println(item);
 		}
 	}
+	
 	public InputSearchBuilding searchBuilding() {
 		Scanner sc = new Scanner(System.in);
 		InputSearchBuilding inputSearchBuilding = new InputSearchBuilding();
@@ -107,12 +106,5 @@ public class BuildingUtil {
 		}
 		return inputSearchBuilding;
 	}
-	public String findBuildingNameByID(int id) {
-		for(BuildingIDandNameOutput item : buildingController.getBuildingNameandID()) {
-			if(id == item.getBuildingID())
-				return item.getBuildingName();
-		}
-		
-		return null;
-	}
+
 }

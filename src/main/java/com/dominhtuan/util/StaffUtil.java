@@ -1,9 +1,12 @@
 package com.dominhtuan.util;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 import com.dominhtuan.controller.StaffController;
+import com.dominhtuan.model.input.InputSearchBuilding;
 import com.dominhtuan.model.output.StaffOutput;
 
 public class StaffUtil {
@@ -40,12 +43,6 @@ public class StaffUtil {
 		}
 		return result;
 	}
-	public String findStaffNameByID(int id) {
-		for(Map.Entry<Integer, String> item : getAllStaff().entrySet()) {
-			if(id == item.getKey())
-				return item.getValue();
-		}
-		
-		return null;
-	}
+	
+	
 }
