@@ -72,35 +72,35 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 		Checkinput checkinput = new Checkinput();
 //		select a.id, a.name, a.street, a.ward, a.floorarea,a.numberofbasement,a.rentprice,a.districtid,b.name as district,c.value as rentarea,d1.name as renttype, f.fullname
 //		from building as a 
-//		left join district as b
+//		inner join district as b
 //		on a.districtid = b.id
-//		left join rentarea as c
+//		inner join rentarea as c
 //		on a.id = c.buildingid
-//		left join buildingrenttype as d
+//		inner join buildingrenttype as d
 //		on a.id = d.buildingid
-//		left join renttype as d1
+//		inner join renttype as d1
 //		on d1.id = d.renttypeid
-//		left join assignmentbuilding as e
+//		inner join assignmentbuilding as e
 //		on a.id = e.buildingid
-//		left join user as f
+//		inner join user as f
 //		on f.id = e.staffid
 //		where 1 = 1
 		StringBuilder select = new StringBuilder(
 				"select a.id, a.name, a.street, a.ward, a.floorarea,a.numberofbasement,a.rentprice,a.districtid,"
-						+ "c.value as rentarea");
+						+ "b.name," + "c.value as rentarea");
 
-		StringBuilder sql = new StringBuilder(
-				"\nfrom building as a\nleft join rentarea as c" + "\non a.id = c.buildingid");
+		StringBuilder sql = new StringBuilder("\nfrom building as a" + "\ninner join district as b"
+				+ "\non a.districtid = b.id" + "\ninner join rentarea as c" + "\non a.id = c.buildingid");
 		if (inputSearchBuilding.getValueRentType().size() > 0) {
 			select.append(",d1.name as renttype");
 			rsset("renttype");
-			sql.append("\nleft join buildingrenttype as d\r\n" + "on a.id = d.buildingid\r\n"
-					+ "left join renttype as d1\r\n" + "on d1.id = d.renttypeid\n");
+			sql.append("\ninner join buildingrenttype as d\r\n" + "on a.id = d.buildingid\r\n"
+					+ "inner join renttype as d1\r\n" + "on d1.id = d.renttypeid\n");
 		}
 		if (!checkinput.is0(inputSearchBuilding.getStaffID())) {
 			select.append(", f.fullname");
 			rsset("fullname");
-			sql.append("\nleft join assignmentbuilding as e\non a.id = e.buildingid\n" + "left join user as f\r\n"
+			sql.append("\ninner join assignmentbuilding as e\non a.id = e.buildingid\n" + "inner join user as f\r\n"
 					+ "on f.id = e.staffid\n");
 		}
 
@@ -141,7 +141,6 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 		if (!checkinput.is0(inputSearchBuilding.getRentPriceTo())) {
 			sql.append(" and a.rentprice < " + inputSearchBuilding.getRentPriceTo());
 		}
-
 
 		if (!checkinput.is0(inputSearchBuilding.getStaffID())) {
 			sql.append(" and e.staffid = " + inputSearchBuilding.getStaffID());
