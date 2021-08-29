@@ -41,7 +41,7 @@ public class RentTypeUtil {
 //				if(item.getKey().contains(item2)) {
 //					results.add(item.getValue());
 //				}
-				if(item.getKey() == item2) {
+				if(item.getKey().equals(item2)) {
 					results.add(item.getValue());
 				}
 			}
