@@ -2,8 +2,9 @@ package com.dominhtuan.util;
 
 public class Checkinput {
 	public boolean is0(String str) {
-		if (str.equals("0"))
+		if (str.equals("0") || str.equals("") || str.equals(null)) {
 			return true;
+		}
 		return false;
 	}
 

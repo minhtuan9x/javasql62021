@@ -63,9 +63,11 @@ public class BuildingUtil {
 			int numberOfBasement = sc.nextInt();
 //			int numberOfBasement = 0;
 			System.out.println("Diện tích từ: ");
+//			int rentAreaFrom = 0;
 			int rentAreaFrom = sc.nextInt();
 			System.out.println("Diện tích đến: ");
 			int rentAreaTo = sc.nextInt();
+//			int rentAreaTo = 0;
 			System.out.println("Gía thuê từ: ");
 			int rentPriceFrom = sc.nextInt();
 //			int rentPriceFrom = 0;

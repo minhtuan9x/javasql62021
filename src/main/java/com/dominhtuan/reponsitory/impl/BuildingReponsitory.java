@@ -85,6 +85,7 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 //		inner join user as f
 //		on f.id = e.staffid
 //		where 1 = 1
+		System.out.println(inputSearchBuilding);
 		StringBuilder select = new StringBuilder(
 				"select a.id, a.name, a.street, a.ward, a.floorarea,a.numberofbasement,a.rentprice,a.districtid,"
 						+ "b.name," + "c.value as rentarea");
@@ -127,25 +128,25 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 		}
 		//
 		if (!checkinput.is0(inputSearchBuilding.getRentAreaFrom())) {
-			sql.append(" and c.value > " + inputSearchBuilding.getRentAreaFrom());
+			sql.append(" and c.value >= " + inputSearchBuilding.getRentAreaFrom());
 
 		}
 		if (!checkinput.is0(inputSearchBuilding.getRentAreaTo())) {
-			sql.append(" and c.value < " + inputSearchBuilding.getRentAreaTo());
+			sql.append(" and c.value <= " + inputSearchBuilding.getRentAreaTo());
 		}
 		//
 		if (!checkinput.is0(inputSearchBuilding.getRentPriceFrom())) {
-			sql.append(" and a.rentprice > " + inputSearchBuilding.getRentPriceFrom());
+			sql.append(" and a.rentprice >= " + inputSearchBuilding.getRentPriceFrom());
 
 		}
 		if (!checkinput.is0(inputSearchBuilding.getRentPriceTo())) {
-			sql.append(" and a.rentprice < " + inputSearchBuilding.getRentPriceTo());
+			sql.append(" and a.rentprice <= " + inputSearchBuilding.getRentPriceTo());
 		}
 
 		if (!checkinput.is0(inputSearchBuilding.getStaffID())) {
 			sql.append(" and e.staffid = " + inputSearchBuilding.getStaffID());
 		}
-		if (inputSearchBuilding.getValueRentType().size() > 0) {
+		if (inputSearchBuilding.getValueRentType() != null && inputSearchBuilding.getValueRentType().size() > 0) {
 			if (inputSearchBuilding.getValueRentType().size() == 1) {
 				sql.append(" and ( d1.code = '" + inputSearchBuilding.getValueRentType().get(0) + "' )");
 			}

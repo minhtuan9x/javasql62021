@@ -38,7 +38,10 @@ public class RentTypeUtil {
 		List<String> results = new ArrayList<String>();
 		for(Map.Entry<String, String> item : getKeyRentType().entrySet()) {
 			for(String item2 : num.split(",")) {
-				if(item.getKey().contains(item2)) {
+//				if(item.getKey().contains(item2)) {
+//					results.add(item.getValue());
+//				}
+				if(item.getKey() == item2) {
 					results.add(item.getValue());
 				}
 			}

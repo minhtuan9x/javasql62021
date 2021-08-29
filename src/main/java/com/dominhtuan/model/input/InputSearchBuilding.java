@@ -94,8 +94,9 @@ public class InputSearchBuilding {
 		return "InputSearchBuilding [name=" + name + ", floorArea=" + floorArea + ", districtID=" + districtID
 				+ ", ward=" + ward + ", street=" + street + ", numberOfBasement=" + numberOfBasement + ", rentAreaFrom="
 				+ rentAreaFrom + ", rentAreaTo=" + rentAreaTo + ", rentPriceFrom=" + rentPriceFrom + ", rentPriceTo="
-				+ rentPriceTo + ", staffID=" + staffID + "]";
+				+ rentPriceTo + ", staffID=" + staffID + ", valueRentType=" + valueRentType + "]";
 	}
+	
 	
 	
 }
