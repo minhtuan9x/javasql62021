@@ -50,18 +50,15 @@ public class DistrictReponsitory implements IDistrictReponsitory {
 		return districtEntities;
 	}
 
+
 	@Override
-	public String findByBuildingId(int buildingId) {
+	public String findByDistrictID(int districtId) {
 		// TODO Auto-generated method stub
 		String districtName = null;
 		try {
 			conn = connectDB.connectDB();
 			stmt = conn.createStatement();
-			String sql = "select a.id, b.name"
-					+ "\nfrom building as a "
-					+ "\nleft join district as b"
-					+ "\non a.districtid = b.id"
-					+ "\nwhere a.id = "+buildingId;
+			String sql = "select * from district where id = "+districtId;
 			rs = stmt.executeQuery(sql);
 			if(rs != null) {
 				while(rs.next()) {

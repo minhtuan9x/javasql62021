@@ -17,36 +17,35 @@ public class StaffRepository implements IStaffRepository {
 	private Connection conn = null;
 	private Statement stmt = null;
 	private ResultSet rs = null;
+
 	public List<StaffEntity> getAllStaff() {
 		List<StaffEntity> staffEntities = new ArrayList<StaffEntity>();
 		// TODO Auto-generated method stub
 		try {
 			conn = connectDB.connectDB();
-			if(conn != null) {
+			if (conn != null) {
 				stmt = conn.createStatement();
 //				select user.fullname, user.id, user_role.roleid
 //				from user
 //				inner join user_role
 //				on user.id = user_role.userid
 //				where user_role.roleid = 2
-				String sql = "select user.fullname, user.id, user_role.roleid\r\n" + 
-						"from user\r\n" + 
-						"inner join user_role\r\n" + 
-						"on user.id = user_role.userid\r\n" + 
-						"where user_role.roleid = 2";
+				String sql = "select user.fullname, user.id, user_role.roleid\r\n" + "from user\r\n"
+						+ "inner join user_role\r\n" + "on user.id = user_role.userid\r\n"
+						+ "where user_role.roleid = 2";
 				rs = stmt.executeQuery(sql);
-				while(rs.next()) {
+				while (rs.next()) {
 					StaffEntity staffEntity = new StaffEntity();
 					staffEntity.setStaffID(rs.getInt("id"));
 					staffEntity.setStaffName(rs.getString("fullname"));
 					staffEntities.add(staffEntity);
 				}
 			}
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
 				conn.close();
 			} catch (SQLException e) {
@@ -54,8 +53,32 @@ public class StaffRepository implements IStaffRepository {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return staffEntities;
+	}
+
+	@Override
+	public String findStaffbyBuildingID(int buildingID) {
+		// TODO Auto-generated method stub
+		String result = "";
+		try {
+			conn = connectDB.connectDB();
+			stmt = conn.createStatement();
+			String sql = "select a.fullname from user as a\n" + "inner join assignmentbuilding as b\n"
+					+ "on a.id = b.staffid \n" + "where b.buildingid =" + buildingID;
+			rs = stmt.executeQuery(sql);
+			if (rs != null) {
+				while (rs.next()) {
+					result += rs.getString("fullname");
+					if (!rs.isLast()) {
+						result += ",";
+					}
+				}
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return result;
 	}
 
 }

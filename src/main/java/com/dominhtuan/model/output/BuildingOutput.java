@@ -122,7 +122,7 @@ public class BuildingOutput {
 	@Override
 	public String toString() {
 		String s;
-		s = String.format("%-30s %-45s %-15s %-15s %-15s %-15s %-30s %-15s %-15s %-15s ", this.name, this.addresss,
+		s = String.format("%-30s %-45s %-15s %-15s %-15s %-15s %-30s %-35s %-15s %-15s ", this.name, this.addresss,
 				this.numberOfBasement, this.floorArea, this.rentArea, this.rentPrice, this.rentType, this.staffName,this.managerName,this.managerPhone);
 		return s;
 	}

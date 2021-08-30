@@ -6,4 +6,5 @@ import com.dominhtuan.reponsitory.entity.RentTypeEntity;
 
 public interface IRentTypeReponsitory {
 	List<RentTypeEntity> getAllRentType();
+	String findRentTypeByBuildingID(int buildingID);
 }

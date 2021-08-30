@@ -40,25 +40,7 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 					buildingEntity.setNumberOfBasement(rs.getInt("numberofbasement"));
 					buildingEntity.setManagerName(rs.getString("managername"));
 					buildingEntity.setManagerPhone(rs.getString("managerphone"));
-					for (String item : checkrs) {
-						switch (item) {
-						case "fullname":
-							buildingEntity.setStaffName(rs.getString("fullname"));
-							break;
-						case "renttype":
-							buildingEntity.setRentType(rs.getString("renttype"));
-							break;
-						case "rentarea":
-							buildingEntity.setRentArea(rs.getInt("rentarea"));
-							break;
-						case "district":
-							buildingEntity.setDistrictId(rs.getInt("districtid"));
-							break;
-
-						default:
-							break;
-						}
-					}
+					buildingEntity.setDistrictId(rs.getInt("districtid"));
 					buildingEntities.add(buildingEntity);
 				}
 			}
@@ -78,47 +60,20 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 
 	public String Query(InputSearchBuilding inputSearchBuilding) {
 		Checkinput checkinput = new Checkinput();
-//		select a.id, a.name, a.street, a.ward, a.floorarea,a.numberofbasement,a.rentprice,a.districtid,b.name as district,c.value as rentarea,d1.name as renttype, f.fullname
-//		from building as a 
-//		inner join district as b
-//		on a.districtid = b.id
-//		inner join rentarea as c
-//		on a.id = c.buildingid
-//		inner join buildingrenttype as d
-//		on a.id = d.buildingid
-//		inner join renttype as d1
-//		on d1.id = d.renttypeid
-//		inner join assignmentbuilding as e
-//		on a.id = e.buildingid
-//		inner join user as f
-//		on f.id = e.staffid
-//		where 1 = 1
-//		System.out.println(inputSearchBuilding);
-		StringBuilder select = new StringBuilder(
-				"select a.id, a.name, a.street, a.ward, a.floorarea,a.numberofbasement,a.rentprice,a.districtid,a.rentpricedescription,"
-				+ "a.managername,a.managerphone");
-
-		StringBuilder sql = new StringBuilder("\nfrom building as a");
+		StringBuilder sql = new StringBuilder("select a.id, a.name, a.street, a.ward, a.floorarea,a.numberofbasement,a.rentprice,a.districtid,a.rentpricedescription,"
+				+ "a.managername,a.managerphone"+"\nfrom building as a");
 		if (!checkinput.is0(inputSearchBuilding.getDistrictID())) {
-			select.append(",b.name");
-			rsset("district");
 			sql.append("\ninner join district as b" + "\non a.districtid = b.id");
 		}
 		if (!checkinput.is0(inputSearchBuilding.getRentAreaFrom())
 				|| !checkinput.is0(inputSearchBuilding.getRentAreaTo())) {
-			select.append(",c.value as rentarea");
-			rsset("rentarea");
 			sql.append("\ninner join rentarea as c" + "\non a.id = c.buildingid");
 		}
 		if (inputSearchBuilding.getValueRentType().size() > 0) {
-			select.append(",d1.name as renttype");
-			rsset("renttype");
 			sql.append("\ninner join buildingrenttype as d\r\n" + "on a.id = d.buildingid\r\n"
 					+ "inner join renttype as d1\r\n" + "on d1.id = d.renttypeid\n");
 		}
 		if (!checkinput.is0(inputSearchBuilding.getStaffID())) {
-			select.append(", f.fullname");
-			rsset("fullname");
 			sql.append("\ninner join assignmentbuilding as e\non a.id = e.buildingid\n" + "inner join user as f\r\n"
 					+ "on f.id = e.staffid\n");
 		}
@@ -184,8 +139,9 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 						+ inputSearchBuilding.getValueRentType().get(2) + "' )");
 			}
 		}
-		System.out.println(select.toString() + sql.toString());
-		return select.toString() + sql.toString();
+		sql.append("\ngroup by a.id");
+		System.out.println(sql.toString());
+		return sql.toString();
 	}
 
 	List<String> checkrs = new ArrayList<>();

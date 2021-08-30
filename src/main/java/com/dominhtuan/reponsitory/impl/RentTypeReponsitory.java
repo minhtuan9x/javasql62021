@@ -13,9 +13,10 @@ import com.dominhtuan.util.ConnectDB;
 
 public class RentTypeReponsitory implements IRentTypeReponsitory {
 	ConnectDB connectDB = new ConnectDB();
-	Connection conn= null;
+	Connection conn = null;
 	Statement stmt = null;
 	ResultSet rs = null;
+
 	@Override
 	public List<RentTypeEntity> getAllRentType() {
 		// TODO Auto-generated method stub
@@ -25,9 +26,9 @@ public class RentTypeReponsitory implements IRentTypeReponsitory {
 			stmt = conn.createStatement();
 			String sql = "SELECT * FROM renttype";
 			rs = stmt.executeQuery(sql);
-			if(rs!=null) {
+			if (rs != null) {
 				RentTypeEntity rentTypeEntity;
-				while(rs.next()) {
+				while (rs.next()) {
 					rentTypeEntity = new RentTypeEntity();
 					rentTypeEntity.setCode(rs.getString("code"));
 					rentTypeEntity.setName(rs.getString("name"));
@@ -37,7 +38,7 @@ public class RentTypeReponsitory implements IRentTypeReponsitory {
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
 				conn.close();
 			} catch (SQLException e) {
@@ -47,5 +48,36 @@ public class RentTypeReponsitory implements IRentTypeReponsitory {
 		}
 		return rentTypeEntities;
 	}
-	
+
+	@Override
+	public String findRentTypeByBuildingID(int buildingID) {
+		// TODO Auto-generated method stub
+		String result = "";
+		try {
+			conn = connectDB.connectDB();
+			stmt = conn.createStatement();
+			String sql = "select a.name from renttype as a " + "inner join buildingrenttype as b "
+					+ "on a.id = b. renttypeid " + "where b.buildingid = " + buildingID;
+		
+			rs = stmt.executeQuery(sql);
+			if (rs != null) {
+				while (rs.next()) {
+					result += rs.getString("name");
+					if (!rs.isLast())
+						result += ",";
+				}
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+
 }

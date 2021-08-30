@@ -8,11 +8,8 @@ public class BuildingEntity {
 	private int districtId;
 	private int numberOfBasement;
 	private int floorArea;
-	private int rentArea;
 	private int rentPrice;
 	private String rentPriceDescription;
-	private String rentType;
-	private String staffName;
 	private String managerPhone;
 	private String managerName;
 	
@@ -72,14 +69,6 @@ public class BuildingEntity {
 		this.floorArea = floorArea;
 	}
 
-	public int getRentArea() {
-		return rentArea;
-	}
-
-	public void setRentArea(int rentArea) {
-		this.rentArea = rentArea;
-	}
-
 	public int getRentPrice() {
 		return rentPrice;
 	}
@@ -97,22 +86,6 @@ public class BuildingEntity {
 		this.rentPriceDescription = rentPriceDescription;
 	}
 
-	public String getRentType() {
-		return rentType;
-	}
-
-	public void setRentType(String rentType) {
-		this.rentType = rentType;
-	}
-
-	public String getStaffName() {
-		return staffName;
-	}
-
-	public void setStaffName(String staffName) {
-		this.staffName = staffName;
-	}
-
 	public String getManagerPhone() {
 		return managerPhone;
 	}
@@ -128,6 +101,7 @@ public class BuildingEntity {
 	public void setManagerName(String managerName) {
 		this.managerName = managerName;
 	}
+
 	
 	
 

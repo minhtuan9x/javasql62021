@@ -29,11 +29,9 @@ public class DistrictUtil {
 			if (districtCode.equals(item.getKey())) {
 				result = districtCode;
 				return result;
-			} else {
-				result = "0";
-				return result;
 			}
 		}
-		return null;
+		result = "0";
+		return result;
 	}
 }
