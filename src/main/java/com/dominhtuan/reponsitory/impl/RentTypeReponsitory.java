@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.dominhtuan.reponsitory.IRentTypeReponsitory;
 import com.dominhtuan.reponsitory.entity.RentTypeEntity;
+import com.dominhtuan.util.ConnectDB;
 
 public class RentTypeReponsitory implements IRentTypeReponsitory {
 	ConnectDB connectDB = new ConnectDB();

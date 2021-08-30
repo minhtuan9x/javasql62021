@@ -1,16 +1,14 @@
-package com.dominhtuan.reponsitory.impl;
+package com.dominhtuan.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-import com.dominhtuan.reponsitory.IConnectDB;
-
-public class ConnectDB implements IConnectDB {
+public class ConnectDB {
 	private String DB_URL = "jdbc:mysql://localhost:3306/estatebasic";
 	private String USER = "root";
 	private String PASS = "admin";
 	private Connection conn = null;
-	@Override
+	
 	public Connection connectDB() {
 		// TODO Auto-generated method stub
 		try {
@@ -22,5 +20,5 @@ public class ConnectDB implements IConnectDB {
 		}
 		return conn;
 	}
-	
+
 }

@@ -8,6 +8,8 @@ public class InputSearchBuilding {
 	private String districtID;
 	private String ward;
 	private String street;
+	private String managerName;
+	private String managerPhone;
 	private int numberOfBasement;
 	private int rentAreaFrom;
 	private int rentAreaTo;
@@ -46,6 +48,19 @@ public class InputSearchBuilding {
 	}
 	public void setStreet(String street) {
 		this.street = street;
+	}
+	
+	public String getManagerName() {
+		return managerName;
+	}
+	public void setManagerName(String managerName) {
+		this.managerName = managerName;
+	}
+	public String getManagerPhone() {
+		return managerPhone;
+	}
+	public void setManagerPhone(String managerPhone) {
+		this.managerPhone = managerPhone;
 	}
 	public int getNumberOfBasement() {
 		return numberOfBasement;
@@ -88,13 +103,6 @@ public class InputSearchBuilding {
 	}
 	public void setValueRentType(List<String> valueRentType) {
 		this.valueRentType = valueRentType;
-	}
-	@Override
-	public String toString() {
-		return "InputSearchBuilding [name=" + name + ", floorArea=" + floorArea + ", districtID=" + districtID
-				+ ", ward=" + ward + ", street=" + street + ", numberOfBasement=" + numberOfBasement + ", rentAreaFrom="
-				+ rentAreaFrom + ", rentAreaTo=" + rentAreaTo + ", rentPriceFrom=" + rentPriceFrom + ", rentPriceTo="
-				+ rentPriceTo + ", staffID=" + staffID + ", valueRentType=" + valueRentType + "]";
 	}
 	
 	

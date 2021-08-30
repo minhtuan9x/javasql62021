@@ -11,8 +11,8 @@ public class BuildingUtil {
 	BuildingController buildingController = new BuildingController();
 
 	public void td() {
-		System.out.println(String.format("%-30s %-45s %-15s %-15s %-15s %-15s %-30s %-15s ", "Name", "Address", "NOB",
-				"Floor area", "Rent Area", "Rent Price", "Rent Type", "Staff Name"));
+		System.out.println(String.format("%-30s %-45s %-15s %-15s %-15s %-15s %-30s %-15s %-15s %-15s ", "Name", "Address", "NOB",
+				"Floor area", "Rent Area", "Rent Price", "Rent Type", "Staff Name","Manager Name","Manager Phone"));
 	}
 
 	public void showBuilding(List<BuildingOutput> buildingOutputs) {
@@ -59,6 +59,10 @@ public class BuildingUtil {
 			System.out.println("Nhập đường: ");
 			String street = sc.nextLine();
 //			String street = "0";
+			System.out.println("Nhập tên quản lí: ");
+			String managerName = sc.nextLine();
+			System.out.println("Nhập số điện thoại quản lí: ");
+			String managerPhone = sc.nextLine();
 			System.out.println("Nhập số tầng hầm: ");
 			int numberOfBasement = sc.nextInt();
 //			int numberOfBasement = 0;
@@ -102,6 +106,8 @@ public class BuildingUtil {
 			inputSearchBuilding.setRentPriceFrom(rentPriceFrom);
 			inputSearchBuilding.setRentPriceTo(rentPriceTo);
 			inputSearchBuilding.setValueRentType(rentType);
+			inputSearchBuilding.setManagerName(managerName);
+			inputSearchBuilding.setManagerPhone(managerPhone);
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.getMessage());

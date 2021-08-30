@@ -6,9 +6,11 @@ public class BuildingOutput {
 	private int numberOfBasement;
 	private int floorArea;
 	private String rentArea;
-	private int rentPrice;
+	private String rentPrice;
 	private String rentType;
 	private String staffName;
+	private String managerName;
+	private String managerPhone;
 
 	public String getName() {
 		return name;
@@ -52,11 +54,11 @@ public class BuildingOutput {
 		this.rentArea = rentArea;
 	}
 
-	public int getRentPrice() {
+	public String getRentPrice() {
 		return rentPrice;
 	}
 
-	public void setRentPrice(int rentPrice) {
+	public void setRentPrice(String rentPrice) {
 		this.rentPrice = rentPrice;
 	}
 
@@ -76,6 +78,21 @@ public class BuildingOutput {
 		this.staffName = staffName;
 	}
 	
+	public String getManagerName() {
+		return managerName;
+	}
+
+	public void setManagerName(String managerName) {
+		this.managerName = managerName;
+	}
+
+	public String getManagerPhone() {
+		return managerPhone;
+	}
+
+	public void setManagerPhone(String managerPhone) {
+		this.managerPhone = managerPhone;
+	}
 
 	@Override
 	public int hashCode() {
@@ -105,8 +122,8 @@ public class BuildingOutput {
 	@Override
 	public String toString() {
 		String s;
-		s = String.format("%-30s %-45s %-15s %-15s %-15s %-15s %-30s %-15s ", this.name, this.addresss,
-				this.numberOfBasement, this.floorArea, this.rentArea, this.rentPrice, this.rentType, this.staffName);
+		s = String.format("%-30s %-45s %-15s %-15s %-15s %-15s %-30s %-15s %-15s %-15s ", this.name, this.addresss,
+				this.numberOfBasement, this.floorArea, this.rentArea, this.rentPrice, this.rentType, this.staffName,this.managerName,this.managerPhone);
 		return s;
 	}
 }

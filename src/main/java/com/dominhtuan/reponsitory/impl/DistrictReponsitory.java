@@ -9,10 +9,11 @@ import java.util.List;
 
 import com.dominhtuan.reponsitory.IDistrictReponsitory;
 import com.dominhtuan.reponsitory.entity.DistrictEntity;
+import com.dominhtuan.util.ConnectDB;
 
 public class DistrictReponsitory implements IDistrictReponsitory {
 
-	private ConnectDB connectDB = new  ConnectDB();
+	private ConnectDB connectDB = new ConnectDB();
 	private Connection conn =null;
 	private Statement stmt = null;
 	private ResultSet rs = null;

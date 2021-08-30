@@ -10,10 +10,11 @@ import java.util.List;
 
 import com.dominhtuan.reponsitory.IStaffRepository;
 import com.dominhtuan.reponsitory.entity.StaffEntity;
+import com.dominhtuan.util.ConnectDB;
 
 public class StaffRepository implements IStaffRepository {
-	private Connection conn = null;
 	private ConnectDB connectDB = new ConnectDB();
+	private Connection conn = null;
 	private Statement stmt = null;
 	private ResultSet rs = null;
 	public List<StaffEntity> getAllStaff() {
