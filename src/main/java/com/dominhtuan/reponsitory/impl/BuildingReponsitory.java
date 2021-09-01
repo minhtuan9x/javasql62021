@@ -27,7 +27,12 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 			conn = connectDB.connectDB();
 			if (conn != null) {
 				stmt = conn.createStatement();
-				rs = stmt.executeQuery(Query(inputSearchBuilding));
+				StringBuilder sql = new StringBuilder("select a.id, a.name, a.street, a.ward, a.floorarea,a.numberofbasement,a.rentprice,a.districtid,a.rentpricedescription,"
+						+ "a.managername,a.managerphone,a.createddate"+"\nfrom building as a");
+				sql.append(JoinQuery(inputSearchBuilding));
+				sql.append(Query(inputSearchBuilding));
+				System.out.println(sql.toString());
+				rs = stmt.executeQuery(sql.toString());
 				while (rs.next()) {
 					BuildingEntity buildingEntity = new BuildingEntity();
 					buildingEntity.setCreatedDate(rs.getDate("createddate"));
@@ -58,26 +63,33 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 		}
 		return buildingEntities;
 	}
-
-	public String Query(InputSearchBuilding inputSearchBuilding) {
+	public String JoinQuery(InputSearchBuilding inputSearchBuilding) {
 		Checkinput checkinput = new Checkinput();
-		StringBuilder sql = new StringBuilder("select a.id, a.name, a.street, a.ward, a.floorarea,a.numberofbasement,a.rentprice,a.districtid,a.rentpricedescription,"
-				+ "a.managername,a.managerphone,a.createddate"+"\nfrom building as a");
+		StringBuilder join = new StringBuilder();
+		
 		if (!checkinput.is0(inputSearchBuilding.getDistrictID())) {
-			sql.append("\ninner join district as b" + "\non a.districtid = b.id");
+			join.append("\ninner join district as b" + "\non a.districtid = b.id");
 		}
 		if (!checkinput.is0(inputSearchBuilding.getRentAreaFrom())
 				|| !checkinput.is0(inputSearchBuilding.getRentAreaTo())) {
-			sql.append("\ninner join rentarea as c" + "\non a.id = c.buildingid");
+			join.append("\ninner join rentarea as c" + "\non a.id = c.buildingid");
 		}
 		if (inputSearchBuilding.getValueRentType().size() > 0) {
-			sql.append("\ninner join buildingrenttype as d\r\n" + "on a.id = d.buildingid\r\n"
+			join.append("\ninner join buildingrenttype as d\r\n" + "on a.id = d.buildingid\r\n"
 					+ "inner join renttype as d1\r\n" + "on d1.id = d.renttypeid\n");
 		}
 		if (!checkinput.is0(inputSearchBuilding.getStaffID())) {
-			sql.append("\ninner join assignmentbuilding as e\non a.id = e.buildingid\n" + "inner join user as f\r\n"
+			join.append("\ninner join assignmentbuilding as e\non a.id = e.buildingid\n" + "inner join user as f\r\n"
 					+ "on f.id = e.staffid\n");
 		}
+		
+		return join.toString();
+	}
+
+	public String Query(InputSearchBuilding inputSearchBuilding) {
+		Checkinput checkinput = new Checkinput();
+		StringBuilder sql = new StringBuilder();
+
 
 		sql.append("\nwhere 1 = 1");
 
@@ -141,15 +153,8 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 			}
 		}
 		sql.append("\ngroup by a.id");
-		System.out.println(sql.toString());
+		
 		return sql.toString();
-	}
-
-	List<String> checkrs = new ArrayList<>();
-
-	public boolean rsset(String input) {
-		checkrs.add(input);
-		return true;
 	}
 
 }
