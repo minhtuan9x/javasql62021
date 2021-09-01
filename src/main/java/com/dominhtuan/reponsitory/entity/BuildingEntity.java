@@ -1,7 +1,6 @@
 package com.dominhtuan.reponsitory.entity;
 
-public class BuildingEntity {
-	private int id;
+public class BuildingEntity extends BaseEntity {
 	private String name;
 	private String street;
 	private String ward;
@@ -13,13 +12,6 @@ public class BuildingEntity {
 	private String managerPhone;
 	private String managerName;
 	
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;

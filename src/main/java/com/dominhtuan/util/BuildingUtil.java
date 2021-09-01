@@ -9,9 +9,10 @@ import com.dominhtuan.model.output.BuildingOutput;
 
 public class BuildingUtil {
 	BuildingController buildingController = new BuildingController();
+	CheckIntUtil checkIntUtil = new CheckIntUtil();
 
 	public void td() {
-		System.out.println(String.format("%-30s %-45s %-15s %-15s %-15s %-15s %-30s %-35s %-15s %-15s ", "Name", "Address", "NOB",
+		System.out.println(String.format("%-15s %-30s %-45s %-15s %-15s %-15s %-15s %-30s %-35s %-15s %-15s ","Created Date", "Name", "Address", "NOB",
 				"Floor area", "Rent Area", "Rent Price", "Rent Type", "Staff Name","Manager Name","Manager Phone"));
 	}
 
@@ -41,7 +42,7 @@ public class BuildingUtil {
 			String name = sc.nextLine();
 //			String name = "0";
 			System.out.println("Nhập diện tích sàn: ");
-			int floorArea = sc.nextInt();
+			int floorArea = checkIntUtil.convertStringToInt();
 //			int floorArea = 0;
 			System.out.println("Danh sách quận: ");
 			districtUtil.showDistrict();
@@ -64,19 +65,19 @@ public class BuildingUtil {
 			System.out.println("Nhập số điện thoại quản lí: ");
 			String managerPhone = sc.nextLine();
 			System.out.println("Nhập số tầng hầm: ");
-			int numberOfBasement = sc.nextInt();
+			int numberOfBasement = checkIntUtil.convertStringToInt();
 //			int numberOfBasement = 0;
 			System.out.println("Diện tích từ: ");
 //			int rentAreaFrom = 0;
-			int rentAreaFrom = sc.nextInt();
+			int rentAreaFrom = checkIntUtil.convertStringToInt();
 			System.out.println("Diện tích đến: ");
-			int rentAreaTo = sc.nextInt();
+			int rentAreaTo = checkIntUtil.convertStringToInt();
 //			int rentAreaTo = 0;
 			System.out.println("Gía thuê từ: ");
-			int rentPriceFrom = sc.nextInt();
+			int rentPriceFrom = checkIntUtil.convertStringToInt();
 //			int rentPriceFrom = 0;
 			System.out.println("Gía thuê đến: ");
-			int rentPriceTo = sc.nextInt();
+			int rentPriceTo = checkIntUtil.convertStringToInt();
 //			int rentPriceTo = 0;
 			System.out.println("Danh sách nhân viên phụ trách: ");
 			staffUtil.showAllStaff();

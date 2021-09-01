@@ -30,6 +30,7 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 				rs = stmt.executeQuery(Query(inputSearchBuilding));
 				while (rs.next()) {
 					BuildingEntity buildingEntity = new BuildingEntity();
+					buildingEntity.setCreatedDate(rs.getDate("createddate"));
 					buildingEntity.setId(rs.getInt("id"));
 					buildingEntity.setName(rs.getString("name"));
 					buildingEntity.setStreet(rs.getString("street"));
@@ -61,7 +62,7 @@ public class BuildingReponsitory implements IBuildingReponsitory {
 	public String Query(InputSearchBuilding inputSearchBuilding) {
 		Checkinput checkinput = new Checkinput();
 		StringBuilder sql = new StringBuilder("select a.id, a.name, a.street, a.ward, a.floorarea,a.numberofbasement,a.rentprice,a.districtid,a.rentpricedescription,"
-				+ "a.managername,a.managerphone"+"\nfrom building as a");
+				+ "a.managername,a.managerphone,a.createddate"+"\nfrom building as a");
 		if (!checkinput.is0(inputSearchBuilding.getDistrictID())) {
 			sql.append("\ninner join district as b" + "\non a.districtid = b.id");
 		}

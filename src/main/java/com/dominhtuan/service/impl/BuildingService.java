@@ -3,6 +3,8 @@ package com.dominhtuan.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.dominhtuan.controller.BuildingController;
+import com.dominhtuan.converter.BuildingConverver;
 import com.dominhtuan.model.input.InputSearchBuilding;
 import com.dominhtuan.model.output.BuildingOutput;
 import com.dominhtuan.reponsitory.entity.BuildingEntity;
@@ -23,23 +25,22 @@ public class BuildingService implements IBuildingService {
 		RentTypeReponsitory rentTypeReponsitory = new RentTypeReponsitory();
 		RentAreaRepository rentAreaRepository = new RentAreaRepository();
 		StaffRepository staffRepository = new StaffRepository();
+		BuildingConverver buildingConverver = new BuildingConverver();
 		List<BuildingEntity> ds = buildingReponsitory.getAllBuilding(inputSearchBuilding);
 		BuildingOutput buildingOutput;
 
 		//
+		String districtName=null;
+		String rentArea = null;
+		String rentType =null;
+		String staffName = null;
 		for (BuildingEntity item : ds) {
 			buildingOutput = new BuildingOutput();
-			buildingOutput.setName(item.getName());
-			buildingOutput.setAddresss(item.getStreet() + " - " + item.getWard() + " - "
-					+ districtReponsitory.findByDistrictID(item.getDistrictId()));
-			buildingOutput.setFloorArea(item.getFloorArea());
-			buildingOutput.setNumberOfBasement(item.getNumberOfBasement());
-			buildingOutput.setRentArea(rentAreaRepository.getAllRentAreaByBuildingID(item.getId()));
-			buildingOutput.setRentType(rentTypeReponsitory.findRentTypeByBuildingID(item.getId()));
-			buildingOutput.setRentPrice(item.getRentPriceDescription());
-			buildingOutput.setStaffName(staffRepository.findStaffbyBuildingID(item.getId()));
-			buildingOutput.setManagerName(item.getManagerName());
-			buildingOutput.setManagerPhone(item.getManagerPhone());
+			districtName= districtReponsitory.findByDistrictID(item.getDistrictId());
+			rentArea=rentAreaRepository.getAllRentAreaByBuildingID(item.getId());
+			rentType=rentTypeReponsitory.findRentTypeByBuildingID(item.getId());
+			staffName=staffRepository.findStaffbyBuildingID(item.getId());
+			buildingOutput = buildingConverver.convertBuildingEntitytoOutput(item, districtName, rentType, rentArea,staffName);
 			buildingOutputs.add(buildingOutput);
 		}
 		return buildingOutputs;

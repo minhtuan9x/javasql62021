@@ -1,6 +1,7 @@
 package com.dominhtuan.model.output;
 
 public class BuildingOutput {
+	private String createDate;
 	private String name;
 	private String addresss;
 	private int numberOfBasement;
@@ -11,6 +12,15 @@ public class BuildingOutput {
 	private String staffName;
 	private String managerName;
 	private String managerPhone;
+
+	
+	public String getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
+	}
 
 	public String getName() {
 		return name;
@@ -122,7 +132,7 @@ public class BuildingOutput {
 	@Override
 	public String toString() {
 		String s;
-		s = String.format("%-30s %-45s %-15s %-15s %-15s %-15s %-30s %-35s %-15s %-15s ", this.name, this.addresss,
+		s = String.format("%-15s %-30s %-45s %-15s %-15s %-15s %-15s %-30s %-35s %-15s %-15s ",this.createDate ,this.name, this.addresss,
 				this.numberOfBasement, this.floorArea, this.rentArea, this.rentPrice, this.rentType, this.staffName,this.managerName,this.managerPhone);
 		return s;
 	}
