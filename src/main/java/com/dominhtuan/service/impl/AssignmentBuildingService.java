@@ -11,44 +11,44 @@ import com.dominhtuan.service.IAssignmentBuildingService;
 
 public class AssignmentBuildingService implements IAssignmentBuildingService {
 
-	public boolean assignmentBuilding(AssignmentBuildingInput assignmentBuildingInput) {
-		// TODO Auto-generated method stub
-		if(assignmentBuildingInput==null)
-			return false;
-		AssignmentBuildingAdvanceInput result = checkAssignment(assignmentBuildingInput);
-		AssignmentBuildingRepository assignmentBuildingRepository = new AssignmentBuildingRepository();
-		if (assignmentBuildingRepository.AssignmentBuilding(result))
-			return true;
-		return false;
-	}
+    public boolean assignmentBuilding(AssignmentBuildingInput assignmentBuildingInput) {
+        // TODO Auto-generated method stub
+        if (assignmentBuildingInput == null)
+            return false;
+        AssignmentBuildingAdvanceInput result = checkAssignment(assignmentBuildingInput);
+        AssignmentBuildingRepository assignmentBuildingRepository = new AssignmentBuildingRepository();
+        if (assignmentBuildingRepository.AssignmentBuilding(result))
+            return true;
+        return false;
+    }
 
-	public AssignmentBuildingAdvanceInput checkAssignment(AssignmentBuildingInput assignmentBuildingInput) {
-		// TODO Auto-generated method stub
-		AssignmentBuildingAdvanceInput assignmentBuildingAdvanceInput = new AssignmentBuildingAdvanceInput();
-		List<Integer> staffIDAdds = new ArrayList<Integer>();
-		List<Integer> staffIDRemoves = new ArrayList<Integer>();
-		StaffService staffService = new StaffService();
-		
-		for (StaffAssignmentOutput item : staffService.getAllStaffAssignment(assignmentBuildingInput.getBuildingID())) {
-			int flag = 0;
-			for (Integer item2 : assignmentBuildingInput.getStaffID()) {
-				if (item.getStaffID() == item2) {
-					flag++;
-					if (!item.getChecked().equals("checked"))
-						staffIDAdds.add(item.getStaffID());
-				}
-			}
-			if (flag == 0) {
-				if (item.getChecked().equals("checked"))
-					staffIDRemoves.add(item.getStaffID());
+    public AssignmentBuildingAdvanceInput checkAssignment(AssignmentBuildingInput assignmentBuildingInput) {
+        // TODO Auto-generated method stub
+        AssignmentBuildingAdvanceInput assignmentBuildingAdvanceInput = new AssignmentBuildingAdvanceInput();
+        List<Integer> staffIDAdds = new ArrayList<Integer>();
+        List<Integer> staffIDRemoves = new ArrayList<Integer>();
+        StaffService staffService = new StaffService();
 
-			}
-		}
-		assignmentBuildingAdvanceInput.setBuildingID(assignmentBuildingInput.getBuildingID());
-		assignmentBuildingAdvanceInput.setStaffIDAdds(staffIDAdds);
-		assignmentBuildingAdvanceInput.setStaffIDRemoves(staffIDRemoves);
+        for (StaffAssignmentOutput item : staffService.getAllStaffAssignment(assignmentBuildingInput.getBuildingID())) {
+            int flag = 0;
+            for (Integer item2 : assignmentBuildingInput.getStaffID()) {
+                if (item.getStaffID() == item2) {
+                    flag++;
+                    if (!item.getChecked().equals("checked"))
+                        staffIDAdds.add(item.getStaffID());
+                }
+            }
+            if (flag == 0) {
+                if (item.getChecked().equals("checked"))
+                    staffIDRemoves.add(item.getStaffID());
 
-		return assignmentBuildingAdvanceInput;
-	}
+            }
+        }
+        assignmentBuildingAdvanceInput.setBuildingID(assignmentBuildingInput.getBuildingID());
+        assignmentBuildingAdvanceInput.setStaffIDAdds(staffIDAdds);
+        assignmentBuildingAdvanceInput.setStaffIDRemoves(staffIDRemoves);
+
+        return assignmentBuildingAdvanceInput;
+    }
 
 }

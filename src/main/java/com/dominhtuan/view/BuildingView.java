@@ -17,7 +17,7 @@ public class BuildingView {
 			assignmentBuildingUtil.assignmentBuilding();//giao toa nha
 		} catch (Exception e) {
 			// TODO: handle exception
-			e.printStackTrace();
+			  e.printStackTrace();
 		}
 
 	}
