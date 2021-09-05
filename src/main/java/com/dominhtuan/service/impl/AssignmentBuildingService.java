@@ -2,11 +2,12 @@ package com.dominhtuan.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.dominhtuan.model.input.AssignmentBuildingAdvanceInput;
 import com.dominhtuan.model.input.AssignmentBuildingInput;
 import com.dominhtuan.model.output.StaffAssignmentOutput;
+import com.dominhtuan.reponsitory.entity.StaffAssignmentEntity;
 import com.dominhtuan.reponsitory.impl.AssignmentBuildingRepository;
+import com.dominhtuan.reponsitory.impl.StaffRepository;
 import com.dominhtuan.service.IAssignmentBuildingService;
 
 public class AssignmentBuildingService implements IAssignmentBuildingService {
@@ -18,6 +19,35 @@ public class AssignmentBuildingService implements IAssignmentBuildingService {
         AssignmentBuildingAdvanceInput result = checkAssignment(assignmentBuildingInput);
         AssignmentBuildingRepository assignmentBuildingRepository = new AssignmentBuildingRepository();
         if (assignmentBuildingRepository.AssignmentBuilding(result))
+            return true;
+        return false;
+    }
+    public boolean assignmentBuilding2(AssignmentBuildingInput assignmentBuildingInput){
+        if (assignmentBuildingInput == null)
+            return false;
+        AssignmentBuildingRepository assignmentBuildingRepository = new AssignmentBuildingRepository();
+        AssignmentBuildingAdvanceInput assignmentBuildingAdvanceInput = new AssignmentBuildingAdvanceInput();
+        List<Integer> staffAdds = new ArrayList<Integer>();
+        List<Integer> staffRemove = new ArrayList<Integer>();
+        StaffRepository staffRepository = new StaffRepository();
+        List<Integer>  news = assignmentBuildingInput.getStaffID();
+        List<Integer> olds = new ArrayList<Integer>();
+        for(StaffAssignmentEntity item : staffRepository.findAllStaffbyBuildingID(assignmentBuildingInput.getBuildingID())){
+            olds.add(item.getStaffID());
+        }
+        for(Integer item : olds){
+            if(!news.contains(item))
+                staffRemove.add(item);
+        }
+        for(Integer item : news){
+            if(!olds.contains(item)){
+                staffAdds.add(item);
+            }
+        }
+        assignmentBuildingAdvanceInput.setBuildingID(assignmentBuildingInput.getBuildingID());
+        assignmentBuildingAdvanceInput.setStaffIDAdds(staffAdds);
+        assignmentBuildingAdvanceInput.setStaffIDRemoves(staffRemove);
+        if (assignmentBuildingRepository.AssignmentBuilding(assignmentBuildingAdvanceInput))
             return true;
         return false;
     }
